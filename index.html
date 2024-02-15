@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>Island Racer</title>
+  </head>
+  <body>
+    <main>
+      <!-- #game-intro -->
+      <div id="game-intro">
+        <img src="" alt="" class="logo" />
+        <br />
+        <button id="start-button">Start Game</button>
+        <p>
+          Use the arrows to control your player. <br />
+          Once you talk to someone, hit the letters in the screen to get points
+        </p>
+      </div>
+      <canvas id="game-screen"></canvas>
+
+      <!-- #game-end is initially hidden using CSS style display: none -->
+      <div id="game-end">
+        <img src="./images/logo.png" alt="" class="logo-img" />
+        <h1>Game Over</h1>
+        <br />
+        <button id="restart-button">Restart</button>
+      </div>
+    </main>
+  </body>
+</html>
