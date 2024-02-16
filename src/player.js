@@ -1,6 +1,8 @@
-class Player extends Character {
-    constructor(imageSrc, initialX, initialY, speed) {
-      super(imageSrc, initialX, initialY, speed);
+import Character from "./Character";
+
+export class Player extends Character {
+    constructor(imageSrc, posX, posY, speed) {
+      super(imageSrc, posX, posY, speed);
     }
 
 }

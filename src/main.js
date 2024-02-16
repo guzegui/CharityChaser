@@ -1,50 +1,32 @@
+
+//import Level1 from "./Level1";
+// 
+import Player from "./Player";
+
+
 const canvas = document.getElementById("game-screen");
 const ctx = canvas.getContext("2d");
 
-
-
-
-
-// Create level
-const level1 = new Image();
-level1.src = '../assets/level1WITHBACKGROUND.png';
-level1.onload = drawLevel;
-
-
-
-function drawLevel() {
-    // Set canvas size to match the image dimensions
-    canvas.width = level1.width;
-    canvas.height = level1.height;
-  
-    // Clear the canvas before drawing
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-    // Draw the level image onto the canvas
-    ctx.drawImage(level1, 0, 0); // Draw at position (0, 0)
-  }
-
-
-
-/*
 // Create tilesheet
 const tilesheet = new Image();
 tilesheet.src = "../assets/tilesheet.png";
-tilesheet.onload = draw;
+tilesheet.onload = renderLevel;
 
+// Set tilesheet and level size in pixels
 let tileSize = 16;
-let tileOutputSize = 1; // can set to 1 for 32px or higher
+let tilesheetCol = 37;
+let tilesheetRow = 28;
+let tilesheetHeight = tilesheetRow * tileSize;
+let tilesheetWidth = tilesheetCol * tileSize;
+
+let levelCols = 50;
+let levelRows = 25;
+let levelHeight = levelRows * tileSize;
+let levelWidth = levelCols * tileSize;
+
+// Convert output from tilesheet dimensions to level dimensions
+let tileOutputSize = Math.floor(levelCols/tilesheetCol);
 let updatedTileSize = tileSize * tileOutputSize;
-
-
-let tilesheetHeight = 800;
-let tilesheetWidth = 600;
-let tilesheetCol = tilesheetWidth / tileSize;
-let tilesheetRow = tilesheetHeight / tileSize;
-let levelCols = 25;
-let levelRows = 14;
-let levelHeight = tilesheetRow * tileSize;
-let levelWidth = tilesheetCol * tileSize;
 
 let level1 = [
   3, 3, 3, 3, 3, 3, 3, 2, 239, 240, 241, 239, 240, 241, 239, 240, 241, 706, 748,
@@ -135,22 +117,89 @@ let level1 = [
 let levelIndex = 0;
 let sourceX = 0;
 let sourceY = 0;
-function draw() {
-   for (let col = 0; col < levelHeight; col += tileSize) {
-      for (let row = 0; row < levelWidth; row += tileSize) {
-         let tileVal = level1[levelIndex];
-         if(tileVal !=0) {
-            tileVal -= 1;
-            sourceY = Math.floor(tileVal/tilesheetCol) * tileSize;
-            sourceX = (tileVal % tilesheetCol) * tileSize;
-            ctx.drawImage(tilesheet, sourceX, sourceY, tileSize,
-            tileSize, row * tileOutputSize, col * tileOutputSize,
-            updatedTileSize, updatedTileSize);
-         }
-         levelIndex ++;
+function renderLevel() {
+  for (let col = 0; col < levelHeight; col += tileSize) {
+    for (let row = 0; row < levelWidth; row += tileSize) {
+      let tileVal = level1[levelIndex];
+      if (tileVal != 0) {
+        tileVal -= 1;
+        sourceY = Math.floor(tileVal / tilesheetCol) * tileSize;
+        sourceX = (tileVal % tilesheetCol) * tileSize;
+        ctx.drawImage(
+          tilesheet,
+          sourceX,
+          sourceY,
+          tileSize,
+          tileSize,
+          row * tileOutputSize,
+          col * tileOutputSize,
+          updatedTileSize,
+          updatedTileSize
+        );
       }
-   }
+      levelIndex++;
+    }
+  }
 }
+
+// Create player character
+const player = new Player(
+  "../assets/characters/player/player_idle.gif",
+  200,
+  200,
+  5
+);
+
+document.addEventListener("keydown", function (event) {
+  switch (event.key) {
+    case "ArrowUp":
+      player.move("up");
+      break;
+    case "ArrowDown":
+      player.move("down");
+      break;
+    case "ArrowLeft":
+      player.move("left");
+      break;
+    case "ArrowRight":
+      player.move("right");
+      break;
+  }
+  renderPlayer();
+});
+
+function renderPlayer() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  player.draw(ctx);
+}
+
+/*
+
 */
 
+/*
 
+
+// CREATE LEVEL AS AN IMAGE
+
+// Create level
+const level1 = new Image();
+level1.src = '../assets/level1.png';
+level1.onload = drawLevel;
+
+
+
+function drawLevel() {
+    // Set canvas size to match the image dimensions
+    canvas.width = level1.width;
+    canvas.height = level1.height;
+  
+    // Clear the canvas before drawing
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+    // Draw the level image onto the canvas
+    ctx.drawImage(level1, 0, 0); // Draw at position (0, 0)
+  }
+
+
+*/
