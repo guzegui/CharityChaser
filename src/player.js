@@ -1,4 +1,4 @@
-import Character from "./Character";
+import Character from "./Character.js";
 
 export class Player extends Character {
     constructor(imageSrc, posX, posY, speed) {
@@ -6,3 +6,5 @@ export class Player extends Character {
     }
 
 }
+
+export default Player;

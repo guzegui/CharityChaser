@@ -18,18 +18,11 @@ body {
   position: relative;
 }
 
+/* Canvas element */
 #game-screen {
-  width: 800px;
-  height: 600px;
-
-  /* display: none;
-    align-content: center;
-    padding: 20px 0px;
-    overflow: hidden;
-    position: relative;
-    background-image: url(../images/road.png);
-    background-size: cover;
-    animation: slide 5s linear infinite; */
+  width: 592px;
+  height: 448px;
+  display: inline-block;
 }
 
 #impassable {
