@@ -13,6 +13,8 @@ const player = new Player(
   5
 );
 
+// Render level in canvas as an image
+
 document.addEventListener("keydown", function (event) {
   switch (event.key) {
     case "ArrowUp":
