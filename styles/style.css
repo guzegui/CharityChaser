@@ -21,8 +21,8 @@ body {
 
 /* Canvas element */
 #game-screen {
-  width: 592px;
-  height: 448px;
+  width: 800px;
+  height: 400px;
   display: inline-block;
 }
 

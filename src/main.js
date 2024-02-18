@@ -8,13 +8,15 @@ const canvas = document.getElementById("game-screen");
 const ctx = canvas.getContext("2d");
 // canvas.width = 1024;
 // canvas.height = 576;
-canvas.width = 1152;
-canvas.height = 576;
+// canvas.width = 1152; //72 ROWS
+// canvas.height = 576; // 36 ROWS
+canvas.width = 800; // 50 rows
+canvas.height = 400; // 25 columns
 
 // Iterate through collisions array and create a new 2d array of 50 elements (map width) per row
 const collisionsMap = [];
 for (let i = 0; i < collisions.length; i += 50) {
-  collisionsMap.push(collisions.slice(i, i + 70));
+  collisionsMap.push(collisions.slice(i, i + 50));
 }
 
 // Create canvas objects for collision detection
@@ -25,7 +27,7 @@ const boundaries = [];
 collisionsMap.forEach((row, index) => {
   row.forEach((element, column) => {
     // If element is not a zero, create a new Boundary object in boundaries array
-    if (element !== 0) {
+    if (element === 1037) {
       boundaries.push(
         new Boundary({
           position: {
@@ -43,11 +45,11 @@ console.log(boundaries)
 
 // Load level as an image
 const levelImage = new Image();
-levelImage.src = "../assets/level1_BIG.png"; //1152 * 576
+levelImage.src = "../assets/level1.png"; //800 * 400
 
 // Load player as an image
 const playerImage = new Image();
-playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png";
+playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png"; //64*64px
 
 // Create player Sprite object
 
@@ -60,9 +62,9 @@ const player = new Sprite({
 });
 
 // After loading, render level
-levelImage.onload = () => {
-  ctx.drawImage(levelImage, 0, 0);
-};
+// levelImage.onload = () => {
+//   ctx.drawImage(levelImage, 0, 0);
+// };
 
 const keys = {
   ArrowUp: false,
@@ -70,6 +72,12 @@ const keys = {
   ArrowLeft: false,
   ArrowRight: false,
 };
+
+/*
+const boundaryImage = new Image();
+playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png"; //64*64px
+*/
+
 function animate() {
   window.requestAnimationFrame(animate);
   console.log("animate");
@@ -78,7 +86,6 @@ function animate() {
   ctx.drawImage(levelImage, 0, 0);
   // Render the player
   player.draw(ctx);
-  ctx.drawImage(playerImage, player.position.x, player.position.y);
   // Render the boundaries
   boundaries.forEach((boundary) => boundary.draw(ctx));
 
@@ -87,6 +94,7 @@ function animate() {
   else if (keys.ArrowLeft) player.position.x -= 1;
   else if (keys.ArrowRight) player.position.x += 1;
 }
+
 console.log("get ready");
 console.log(collisions);
 animate();
