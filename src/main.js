@@ -40,8 +40,8 @@ collisionsMap.forEach((row, index) => {
   });
 });
 
-console.log(collisionsMap)
-console.log(boundaries)
+console.log(collisionsMap);
+console.log(boundaries);
 
 // Load level as an image
 const levelImage = new Image();
@@ -49,7 +49,8 @@ levelImage.src = "../assets/level1.png"; //800 * 400
 
 // Load player as an image
 const playerImage = new Image();
-playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png"; //64*64px
+// playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png"; //64*64px
+playerImage.src = "../assets/characters/player/Character1M_1_idle_0_SMALL.png"; //30PX
 
 // Create player Sprite object
 
@@ -78,6 +79,13 @@ const boundaryImage = new Image();
 playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png"; //64*64px
 */
 
+const testBoundary = new Boundary({
+  position: {
+    x: 150,
+    y: 200,
+  },
+});
+
 function animate() {
   window.requestAnimationFrame(animate);
   console.log("animate");
@@ -86,8 +94,22 @@ function animate() {
   ctx.drawImage(levelImage, 0, 0);
   // Render the player
   player.draw(ctx);
+  // Render the test boundary
+  testBoundary.draw(ctx);
   // Render the boundaries
-  boundaries.forEach((boundary) => boundary.draw(ctx));
+  //boundaries.forEach((boundary) => boundary.draw(ctx));
+
+  // To test boundaryX collisions. if right side of player (x coordinate + pixel is equal to x coordinate of boundary)
+  if (
+    player.position.x + player.width >= testBoundary.position.x &&
+    player.position.x <= testBoundary.position.x + testBoundary.width &&
+    player.position.y + player.height >= testBoundary.position.y &&
+    player.position.y <= testBoundary.position.y + testBoundary.height
+  ) {
+    console.log("COLLISION!!!!!!!!");
+  } else {
+    console.log("NOpeeeee!!!!!!!!");
+  }
 
   if (keys.ArrowUp) player.position.y -= 1;
   else if (keys.ArrowDown) player.position.y += 1;
@@ -103,16 +125,16 @@ animate();
 
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
-    case "ArrowUp":
+    case "w":
       keys.ArrowUp = true;
       break;
-    case "ArrowDown":
+    case "s":
       keys.ArrowDown = true;
       break;
-    case "ArrowLeft":
+    case "a":
       keys.ArrowLeft = true;
       break;
-    case "ArrowRight":
+    case "d":
       keys.ArrowRight = true;
       break;
   }
@@ -120,16 +142,16 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("keyup", (event) => {
   switch (event.key) {
-    case "ArrowUp":
+    case "w":
       keys.ArrowUp = false;
       break;
-    case "ArrowDown":
+    case "s":
       keys.ArrowDown = false;
       break;
-    case "ArrowLeft":
+    case "a":
       keys.ArrowLeft = false;
       break;
-    case "ArrowRight":
+    case "d":
       keys.ArrowRight = false;
       break;
   }
