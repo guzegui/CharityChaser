@@ -94,22 +94,69 @@ function animate() {
   ctx.drawImage(levelImage, 0, 0);
   // Render the player
   player.draw(ctx);
-  // Render the test boundary
-  testBoundary.draw(ctx);
+  //testBoundary.draw(ctx);
   // Render the boundaries
-  //boundaries.forEach((boundary) => boundary.draw(ctx));
+  boundaries.forEach((boundary) => {
+    boundary.draw(ctx);
+    // if (boundary.isCollision(player)) {
+    //   console.log("COLLISION!!!!!!!!");
+    // } else {
+    //   console.log("NOpeeeee!!!!!!!!");
+    // }
+  });
+  let isMoving = true;
 
-  // To test boundaryX collisions. if right side of player (x coordinate + pixel is equal to x coordinate of boundary)
-  if (testBoundary.boundaryCollision(player)) {
-    console.log("COLLISION!!!!!!!!");
-  } else {
-    console.log("NOpeeeee!!!!!!!!");
+  /*
+  if (keys.ArrowUp) {
+    player.position.y -= 1;
+  } else if (keys.ArrowDown) {
+    player.position.y += 1;
+  } else if (keys.ArrowLeft) {
+    player.position.x -= 1;
+  } else if (keys.ArrowRight) {
+    player.position.x += 1;
   }
+  */
 
-  if (keys.ArrowUp) player.position.y -= 1;
-  else if (keys.ArrowDown) player.position.y += 1;
-  else if (keys.ArrowLeft) player.position.x -= 1;
-  else if (keys.ArrowRight) player.position.x += 1;
+
+  if (keys.ArrowUp) {
+    isMoving = boundaries[0].checkAllCollisions(
+      "ArrowUp",
+      boundaries,
+      player,
+      isMoving
+    );
+    if (isMoving) player.position.y -= 1;
+  } else if (keys.ArrowDown) {
+    isMoving = boundaries[0].checkAllCollisions(
+      "ArrowDown",
+      boundaries,
+      player,
+      isMoving
+    );
+    if (isMoving) player.position.y += 1;
+  } else if (keys.ArrowLeft) {
+    isMoving = boundaries[0].checkAllCollisions(
+      "ArrowLeft",
+      boundaries,
+      player,
+      isMoving
+    );
+    if (isMoving) player.position.x -= 1;
+  } else if (keys.ArrowRight) {
+    isMoving = boundaries[0].checkAllCollisions(
+      "ArrowRight",
+      boundaries,
+      player,
+      isMoving
+    );
+    if (isMoving) {
+      console.log("MOOOOOVE");
+      player.position.x += 1;
+    } else {
+      console.log("DON´T  MOOOOOVE");
+    }
+  }
 }
 
 console.log("get ready");
