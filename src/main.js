@@ -62,6 +62,37 @@ const player = new Player({
   image: playerImage,
 });
 
+// Import pedestrian images as string array - 3 females and 2 males
+const pedestrianSrc = [
+  "../assets/characters/pedestrians/Character1F_1_idle_0.png",
+  "../assets/characters/pedestrians/Character1F_2_idle_0.png",
+  "../assets/characters/pedestrians/Character1F_3_idle_0.png",
+  "../assets/characters/pedestrians/Character2M_2_idle_0.png",
+  "../assets/characters/pedestrians/Character2M_3_idle_0.png",
+  "../assets/characters/pedestrians/Character3M_3_idle_0.png",
+];
+
+// Create pedestrian array
+
+const pedestrians = [];
+
+for (let i = 0; i < 20; i++) {
+  let pedImage = new Image();
+  pedImage.src =
+    pedestrianSrc[Math.floor(Math.random() * pedestrianSrc.length)];
+  pedestrians.push(
+    new Pedestrian({
+      position: {
+        x: Math.floor(Math.random() * canvas.width),
+        y: Math.floor(Math.random() * canvas.height),
+      },
+      image: pedImage,
+    })
+  );
+}
+
+pedestrians.forEach((element) => console.log(element.image.src));
+
 // After loading, render level
 // levelImage.onload = () => {
 //   ctx.drawImage(levelImage, 0, 0);
@@ -88,6 +119,11 @@ function animate() {
   player.draw(ctx);
   // Render the foreground
   ctx.drawImage(foregroundImage, 0, 0);
+
+  // Render the pedestrians
+  pedestrians.forEach((pedestrian) => {
+    pedestrian.draw(ctx);
+  });
 
   let isMoving = true;
 
