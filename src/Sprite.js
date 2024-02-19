@@ -1,7 +1,8 @@
+import Position from "./Position.js"
 export class Sprite {
-  constructor({ position, velocity, image }) {
+  constructor(position, image) {
     this.position = position;
-    this.velocity = velocity;
+    //this.velocity = velocity;
     this.image = image;
     // frames?? frames = { max: 0}
     this.image.onload = () => {

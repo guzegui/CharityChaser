@@ -1,7 +1,8 @@
 import Sprite from './Sprite.js';
+import Position from './Position.js';
 export class Player extends Sprite {
-    constructor({ position, velocity, image }) {
-      super({ position, velocity, image });
+    constructor(position, image) {
+      super(position, image);
     }
 
 }

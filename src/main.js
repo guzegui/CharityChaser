@@ -5,6 +5,7 @@ import collisions from "./collisions.js";
 import Boundary from "./Boundary.js";
 import Player from "./Player.js";
 import Pedestrian from "./Pedestrian.js";
+import Position from "./Position.js";
 
 const canvas = document.getElementById("game-screen");
 const ctx = canvas.getContext("2d");
@@ -26,17 +27,12 @@ collisionsMap.forEach((row, index) => {
   row.forEach((element, column) => {
     // If element is not a zero, create a new Boundary object in boundaries array
     if (element === 1037) {
-      boundaries.push(
-        new Boundary({
-          position: {
-            x: column * 16,
-            y: index * 16,
-          },
-        })
-      );
+      boundaries.push(new Boundary(new Position(column * 16, index * 16)));
     }
   });
 });
+
+console.log(boundaries);
 
 // Load level as an image
 const levelImage = new Image();
@@ -54,13 +50,7 @@ playerImage.src = "../assets/characters/player/Character1M_1_idle_0_SMALL.png"; 
 
 // Create player Sprite object
 
-const player = new Player({
-  position: {
-    x: 200,
-    y: 200,
-  },
-  image: playerImage,
-});
+const player = new Player(new Position(200, 200), playerImage);
 
 // Import pedestrian images as string array - 3 females and 2 males
 const pedestrianSrc = [
@@ -77,17 +67,17 @@ const pedestrianSrc = [
 const pedestrians = [];
 
 for (let i = 0; i < 20; i++) {
-  let pedImage = new Image();
-  pedImage.src =
+  let pedestrianImage = new Image();
+  pedestrianImage.src =
     pedestrianSrc[Math.floor(Math.random() * pedestrianSrc.length)];
   pedestrians.push(
-    new Pedestrian({
-      position: {
-        x: Math.floor(Math.random() * canvas.width),
-        y: Math.floor(Math.random() * canvas.height),
-      },
-      image: pedImage,
-    })
+    new Pedestrian(
+      new Position(
+        Math.floor(Math.random() * canvas.width),
+        Math.floor(Math.random() * canvas.height)
+      ),
+      pedestrianImage
+    )
   );
 }
 

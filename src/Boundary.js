@@ -1,5 +1,7 @@
+import Position from "./Position.js";
+
 export class Boundary {
-  constructor({ position }) {
+  constructor(position) {
     this.position = position;
     // Dimensions are the level pixel size
     this.width = 16;
@@ -24,37 +26,36 @@ export class Boundary {
     //const boundariesShallowCopy = [...boundaries];
 
     for (let i = 0; i < boundaries.length; i++) {
-        nextBoundary = (boundaries[i]);
+      nextBoundary = boundaries[i];
       switch (keyPressed) {
         case "ArrowUp":
           //nextBoundary.position.y += 1;
           if (this.isCollision(character, nextBoundary, 0, 1)) {
             isMoving = false;
-        }
-        break;
+          }
+          break;
 
         case "ArrowDown":
           //nextBoundary.position.y -= 1;
           if (this.isCollision(character, nextBoundary, 0, -1)) {
             isMoving = false;
-        }
-        break;
+          }
+          break;
         case "ArrowLeft":
           //nextBoundary.position.x += 1;
           if (this.isCollision(character, nextBoundary, 1, 0)) {
             isMoving = false;
-        }
-        break;
+          }
+          break;
         case "ArrowRight":
           //nextBoundary.position.x -= 1;
           if (this.isCollision(character, nextBoundary, -1, 0)) {
             isMoving = false;
-        }
-        break;
+          }
+          break;
         //   default:
         //     break;
       }
-
     }
     return isMoving;
   }
