@@ -6,10 +6,6 @@ import Boundary from "./Boundary.js";
 
 const canvas = document.getElementById("game-screen");
 const ctx = canvas.getContext("2d");
-// canvas.width = 1024;
-// canvas.height = 576;
-// canvas.width = 1152; //72 ROWS
-// canvas.height = 576; // 36 ROWS
 canvas.width = 800; // 50 rows
 canvas.height = 400; // 25 columns
 
@@ -40,12 +36,14 @@ collisionsMap.forEach((row, index) => {
   });
 });
 
-console.log(collisionsMap);
-console.log(boundaries);
-
 // Load level as an image
 const levelImage = new Image();
 levelImage.src = "../assets/level1.png"; //800 * 400
+
+// Load foreground as an image
+
+const foregroundImage = new Image();
+foregroundImage.src = "../assets/foreground.png";
 
 // Load player as an image
 const playerImage = new Image();
@@ -74,50 +72,22 @@ const keys = {
   ArrowRight: false,
 };
 
-/*
-const boundaryImage = new Image();
-playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png"; //64*64px
-*/
-
-const testBoundary = new Boundary({
-  position: {
-    x: 150,
-    y: 200,
-  },
-});
-
 function animate() {
   window.requestAnimationFrame(animate);
   console.log("animate");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Rerender the level
   ctx.drawImage(levelImage, 0, 0);
-  // Render the player
-  player.draw(ctx);
-  //testBoundary.draw(ctx);
   // Render the boundaries
   boundaries.forEach((boundary) => {
     boundary.draw(ctx);
-    // if (boundary.isCollision(player)) {
-    //   console.log("COLLISION!!!!!!!!");
-    // } else {
-    //   console.log("NOpeeeee!!!!!!!!");
-    // }
   });
+  // Render the player
+  player.draw(ctx);
+  // Render the foreground
+  ctx.drawImage(foregroundImage, 0, 0);
+
   let isMoving = true;
-
-  /*
-  if (keys.ArrowUp) {
-    player.position.y -= 1;
-  } else if (keys.ArrowDown) {
-    player.position.y += 1;
-  } else if (keys.ArrowLeft) {
-    player.position.x -= 1;
-  } else if (keys.ArrowRight) {
-    player.position.x += 1;
-  }
-  */
-
 
   if (keys.ArrowUp) {
     isMoving = boundaries[0].checkAllCollisions(
@@ -150,12 +120,7 @@ function animate() {
       player,
       isMoving
     );
-    if (isMoving) {
-      console.log("MOOOOOVE");
-      player.position.x += 1;
-    } else {
-      console.log("DON´T  MOOOOOVE");
-    }
+    if (isMoving) player.position.x += 1;
   }
 }
 
