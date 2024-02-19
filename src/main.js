@@ -100,12 +100,7 @@ function animate() {
   //boundaries.forEach((boundary) => boundary.draw(ctx));
 
   // To test boundaryX collisions. if right side of player (x coordinate + pixel is equal to x coordinate of boundary)
-  if (
-    player.position.x + player.width >= testBoundary.position.x &&
-    player.position.x <= testBoundary.position.x + testBoundary.width &&
-    player.position.y + player.height >= testBoundary.position.y &&
-    player.position.y <= testBoundary.position.y + testBoundary.height
-  ) {
+  if (testBoundary.boundaryCollision(player)) {
     console.log("COLLISION!!!!!!!!");
   } else {
     console.log("NOpeeeee!!!!!!!!");
