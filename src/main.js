@@ -3,6 +3,8 @@
 import Sprite from "./Sprite.js";
 import collisions from "./collisions.js";
 import Boundary from "./Boundary.js";
+import Player from "./Player.js";
+import Pedestrian from "./Pedestrian.js";
 
 const canvas = document.getElementById("game-screen");
 const ctx = canvas.getContext("2d");
@@ -52,7 +54,7 @@ playerImage.src = "../assets/characters/player/Character1M_1_idle_0_SMALL.png"; 
 
 // Create player Sprite object
 
-const player = new Sprite({
+const player = new Player({
   position: {
     x: 200,
     y: 200,
