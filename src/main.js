@@ -50,7 +50,7 @@ playerImage.src = "../assets/characters/player/Character1M_1_idle_0_SMALL.png"; 
 
 // Create player Sprite object
 
-const player = new Player(new Position(200, 200), playerImage);
+const player = new Player(new Position(200, 200), playerImage, 1);
 
 // Import pedestrian images as string array - 3 females and 2 males
 const pedestrianSrc = [
@@ -76,12 +76,11 @@ for (let i = 0; i < 20; i++) {
         Math.floor(Math.random() * canvas.width),
         Math.floor(Math.random() * canvas.height)
       ),
-      pedestrianImage
+      pedestrianImage,
+      0.5
     )
   );
 }
-
-pedestrians.forEach((element) => console.log(element.image.src));
 
 // After loading, render level
 // levelImage.onload = () => {
@@ -113,6 +112,16 @@ function animate() {
   // Render the pedestrians
   pedestrians.forEach((pedestrian) => {
     pedestrian.draw(ctx);
+  });
+
+  // Move the pedestrians
+  pedestrians.forEach((pedestrian, index) => {
+    if (!pedestrian.isLastPosition()) {
+      pedestrian.move();
+    } else {
+      // Remove the pedestrian from the array
+      pedestrians.splice(index, 1);
+    }
   });
 
   let isMoving = true;
