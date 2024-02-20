@@ -6,11 +6,15 @@ import Boundary from "./Boundary.js";
 import Player from "./Player.js";
 import Pedestrian from "./Pedestrian.js";
 import Position from "./Position.js";
+import showNextLetter from "./letterGuessing.js";
 
 const canvas = document.getElementById("game-screen");
 const ctx = canvas.getContext("2d");
 canvas.width = 800; // 50 rows
 canvas.height = 400; // 25 columns
+
+const leftSide = document.getElementById("left-side");
+const rightSide = document.getElementById("right-side");
 
 // Iterate through collisions array and create a new 2d array of 50 elements (map width) per row
 const collisionsMap = [];
@@ -94,8 +98,51 @@ const keys = {
   ArrowRight: false,
 };
 
+function guessTheLetter() {
+  showNextLetter();
+  // Define an arrow function that logs "hello world" to the console
+  const logHelloWorld = () => {
+    console.log("hello world");
+  };
+
+  // Set interval to 10 times a second for 10 seconds. inside the function, call the logHelloWorld function
+  const intervalId = setInterval(logHelloWorld, 1000);
+
+  // Set a timeout to stop the interval after 10 seconds
+  setTimeout(() => {
+    clearInterval(intervalId);
+  }, 10000);
+
+  return
+}
+
+let timer = 60;
+let score = 0;
+
+function animateLeftSide() {
+  leftSide.innerHTML = `
+  <div class="timer">
+    Time: ${timer}
+  </div>
+  `;
+}
+
+setInterval(() => {
+  timer--;
+}, 1000);
+
+function animateRightSide() {
+  rightSide.innerHTML = `
+  <div class="score">
+    Score: ${score}
+  </div>
+  `;
+}
+
 function animate() {
-  window.requestAnimationFrame(animate);
+  animateLeftSide();
+  animateRightSide();
+
   console.log("animate");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // Rerender the level
@@ -122,6 +169,7 @@ function animate() {
   // If the player is next to any pedestrian, exit the function
   if (isPlayerNextToPedestrian) {
     console.log("collisionnnnnnnnnn");
+    guessTheLetter();
     return;
   }
 
@@ -170,6 +218,7 @@ function animate() {
     );
     if (isMoving) player.position.x += 1;
   }
+  window.requestAnimationFrame(animate);
 }
 
 console.log("get ready");
