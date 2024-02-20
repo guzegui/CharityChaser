@@ -76,7 +76,7 @@ body {
 }
 
 /* Divs for left, right, and bottom sides */
-#left-side, #right-side, #bottom-side {
+#left-side, #right-side{
   background-color: #870007;
   
 }

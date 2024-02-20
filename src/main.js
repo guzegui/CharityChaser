@@ -6,7 +6,7 @@ import Boundary from "./Boundary.js";
 import Player from "./Player.js";
 import Pedestrian from "./Pedestrian.js";
 import Position from "./Position.js";
-import showNextLetter from "./letterGuessing.js";
+import startLetterGuessingGame from "./letterGuessing.js";
 
 const canvas = document.getElementById("game-screen");
 const ctx = canvas.getContext("2d");
@@ -99,7 +99,7 @@ const keys = {
 };
 
 function guessTheLetter() {
-  showNextLetter();
+  startLetterGuessingGame();
   // Define an arrow function that logs "hello world" to the console
   const logHelloWorld = () => {
     console.log("hello world");
@@ -113,7 +113,7 @@ function guessTheLetter() {
     clearInterval(intervalId);
   }, 10000);
 
-  return
+  return;
 }
 
 let timer = 60;
@@ -142,6 +142,7 @@ function animateRightSide() {
 function animate() {
   animateLeftSide();
   animateRightSide();
+  let isPlayerNextToPedestrian = false;
 
   console.log("animate");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -162,7 +163,7 @@ function animate() {
   });
 
   // Check if the player is next to any pedestrian
-  let isPlayerNextToPedestrian = pedestrians.some((pedestrian) => {
+  isPlayerNextToPedestrian = pedestrians.some((pedestrian) => {
     return player.position.isNextTo(player, pedestrian, player.width);
   });
 
