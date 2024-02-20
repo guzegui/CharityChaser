@@ -15,26 +15,89 @@ body {
     justify-content: center;
   } */
 
+/* Container div */
 #game-container {
   position: relative;
-}
-
-/* Canvas element */
-#game-screen {
   width: 800px;
   height: 400px;
   display: inline-block;
 }
 
-#impassable {
+
+/*
+
+
+#game-screen {
   position: absolute;
   top: 0;
-  left: 380px;
-  width: 270px; /* Adjust width as needed */
-  height: 240px; /* Adjust height as needed */
-  background-color: transparent;
-  border: 1px dashed red; /* Just for visualization */
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
+
+#game-screen {
+  width: 800px;
+  height: 400px;
+  display: inline-block;
+}
+*/
+
+/* Container div */
+#game-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  /* width: 800px;
+  height: 400px; */
+  position: relative;
+  margin: auto;
+  /* flex-wrap: wrap; */
+}
+
+#top-container{
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  height: auto;
+
+  /* width: 800px;
+  height: 400px; */
+  /* position: relative; */
+  margin: auto;
+  /* flex-wrap: wrap; */
+}
+
+/* Canvas element */
+#game-screen {
+  flex: 1;
+}
+
+/* Divs for left, right, and bottom sides */
+#left-side, #right-side, #bottom-side {
+  background-color: #870007;
+  
+}
+
+
+#left-side, #right-side {
+  flex: 0 0 100px; 
+}
+
+#bottom-side-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#bottom-side {
+  width: 800px; 
+  height: 100px;
+}
+
+
 
 /* @keyframes slide {
     0% {

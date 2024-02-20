@@ -8,30 +8,39 @@
     <title>Charity Chaser</title>
   </head>
   <body>
-    <main>
-      <!-- #game-intro -->
-      <div id="game-intro">
-        <img src="./assets/logo.png" alt="" class="logo" />
-        <br />
-        <button id="start-button">Start Game</button>
-        <p>
-          Use the arrows to control your player. <br />
-          Once you talk to someone, hit the letters in the screen to get points
-        </p>
-      </div>
+    <!-- <main> -->
+    <!-- #game-intro -->
+    <div id="game-intro">
+      <img src="./assets/logo.png" alt="" class="logo" />
+      <br />
+      <button id="start-button">Start Game</button>
+      <p>
+        Use the arrows to control your player. <br />
+        Once you talk to someone, hit the letters in the screen to get points
+      </p>
+    </div>
 
-      
+    <div id="game-container">
+      <div id="top-container">
+
+        <div id="left-side"></div>
         <canvas id="game-screen"></canvas>
-      
+        <div id="right-side"></div>
 
-      <!-- #game-end is initially hidden using CSS style display: none -->
-      <div id="game-end">
-        <img src="./assets/logo.png" alt="" class="logo-img" />
-        <h1>Game Over</h1>
-        <br />
-        <button id="restart-button">Restart</button>
       </div>
-    </main>
+      <div id="bottom-side-container">
+        <div id="bottom-side"></div>
+      </div>
+    </div>
+
+    <!-- #game-end is initially hidden using CSS style display: none -->
+    <div id="game-end">
+      <img src="./assets/logo.png" alt="" class="logo-img" />
+      <h1>Game Over</h1>
+      <br />
+      <button id="restart-button">Restart</button>
+    </div>
+    <!-- </main> -->
     <!-- <script type="module" src="./src/level1.js"></script> -->
     <script type="module" src="./src/Position.js"></script>
     <script type="module" src="./src/Sprite.js"></script>
