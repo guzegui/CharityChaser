@@ -114,13 +114,14 @@ function animate() {
     pedestrian.draw(ctx);
   });
 
-    // Check if the player is next to any pedestrian
-    let isPlayerNextToPedestrian = pedestrians.some((pedestrian) =>
-    player.position.isNextTo(pedestrian.position, player.width)
-  );
+  // Check if the player is next to any pedestrian
+  let isPlayerNextToPedestrian = pedestrians.some((pedestrian) => {
+    return player.position.isNextTo(player, pedestrian, player.width);
+  });
 
   // If the player is next to any pedestrian, exit the function
   if (isPlayerNextToPedestrian) {
+    console.log("collisionnnnnnnnnn");
     return;
   }
 
@@ -134,8 +135,6 @@ function animate() {
     }
   });
 
-  
-  
   let isMoving = true;
 
   if (keys.ArrowUp) {
