@@ -1,11 +1,11 @@
 import Position from "./Position.js";
 
 export class Boundary {
-  constructor(position) {
+  constructor(position, pixelSize) {
     this.position = position;
     // Dimensions are the level pixel size
-    this.width = 16;
-    this.height = 16;
+    this.width = pixelSize;
+    this.height = pixelSize;
   }
   draw(ctx) {
     ctx.fillStyle = "rgba(255, 0, 0, 0)";

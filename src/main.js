@@ -27,7 +27,7 @@ collisionsMap.forEach((row, index) => {
   row.forEach((element, column) => {
     // If element is not a zero, create a new Boundary object in boundaries array
     if (element === 1037) {
-      boundaries.push(new Boundary(new Position(column * 16, index * 16)));
+      boundaries.push(new Boundary(new Position(column * 16, index * 16), 16));
     }
   });
 });
@@ -114,6 +114,16 @@ function animate() {
     pedestrian.draw(ctx);
   });
 
+    // Check if the player is next to any pedestrian
+    let isPlayerNextToPedestrian = pedestrians.some((pedestrian) =>
+    player.position.isNextTo(pedestrian.position, player.width)
+  );
+
+  // If the player is next to any pedestrian, exit the function
+  if (isPlayerNextToPedestrian) {
+    return;
+  }
+
   // Move the pedestrians
   pedestrians.forEach((pedestrian, index) => {
     if (!pedestrian.isLastPosition()) {
@@ -124,6 +134,8 @@ function animate() {
     }
   });
 
+  
+  
   let isMoving = true;
 
   if (keys.ArrowUp) {

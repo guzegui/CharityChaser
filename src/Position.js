@@ -11,6 +11,14 @@ export class Position {
   isSamePositions(position) {
     return this.x === position.x && this.y === position.y;
   }
+
+  //Return true if the position is one x or one y from this
+  isNextTo(position, pixelOffset) {
+    return (
+      Math.abs(this.x - position.x) <= pixelOffset &&
+      Math.abs(this.y - position.y) <= pixelOffset
+    );
+  }
 }
 
 export default Position;
