@@ -23,7 +23,6 @@ body {
   display: inline-block;
 }
 
-
 /*
 
 
@@ -57,7 +56,7 @@ body {
   /* flex-wrap: wrap; */
 }
 
-#top-container{
+#top-container {
   display: flex;
   flex-direction: row;
   width: 70%;
@@ -76,40 +75,84 @@ body {
 }
 
 /* Divs for left, right, and bottom sides */
-#left-side, #right-side{
+#left-side,
+#right-side {
   background-color: #870007;
-  
 }
 
-
-#left-side, #right-side {
-  flex: 0 0 100px; 
+#left-side,
+#right-side {
+  flex: 0 0 100px;
 }
 
-#bottom-side-container{
+#bottom-container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-#bottom-side {
-  width: 800px; 
-  height: 100px;
+#text-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 2px solid black;
+  margin: 0 auto;
 }
 
+#text-box {
+  position: absolute;
+  font-size: 3rem;
+  text-align: center;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+  transition: color 0.5s ease-in-out;
+}
 
+#score {
+  font-size: 2rem;
+  margin-top: 20px;
+  text-align: center;
+  transition: color 0.5s ease-in-out;
+}
 
-/* @keyframes slide {
-    0% {
-      background-position: 0 -1000px;
-    }
-    95% {
-      background-position: 0 0;
-    }
-    100% {
-      background-position: 0 50px;
-    }
-  } */
+.red-text {
+  color: red;
+}
+
+.green-text {
+  color: green;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes scoreUpdate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 #game-end {
   display: none;

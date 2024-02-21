@@ -98,24 +98,6 @@ const keys = {
   ArrowRight: false,
 };
 
-function guessTheLetter() {
-  startLetterGuessingGame();
-  // Define an arrow function that logs "hello world" to the console
-  const logHelloWorld = () => {
-    console.log("hello world");
-  };
-
-  // Set interval to 10 times a second for 10 seconds. inside the function, call the logHelloWorld function
-  const intervalId = setInterval(logHelloWorld, 1000);
-
-  // Set a timeout to stop the interval after 10 seconds
-  setTimeout(() => {
-    clearInterval(intervalId);
-  }, 10000);
-
-  return;
-}
-
 let timer = 60;
 let score = 0;
 
@@ -170,7 +152,7 @@ function animate() {
   // If the player is next to any pedestrian, exit the function
   if (isPlayerNextToPedestrian) {
     console.log("collisionnnnnnnnnn");
-    guessTheLetter();
+    startLetterGuessingGame();
     return;
   }
 

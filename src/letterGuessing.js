@@ -1,55 +1,65 @@
-const bottomSideContainer = document.getElementById("bottom-side-container");
+let letters = ["a", "s", "d", "f"];
+let score = 0;
+let numWords = 0;
+let isJustStarted = true;
+
 const scoreElement = document.getElementById("score");
 
-// Get the current score value from the scoreElement
-//let currentScore = parseInt(scoreElement.textContent.split(":")[1].trim());
-
-const letters = ["d", "f", "a"];
-let letterToGuess = null;
-let listenToInput = true;
-let letterToListen = null;
-
-/*rightSide.innerHTML = `
-  <div class="score">
-    Score: ${score}
-  </div>
-  `;*/
 function startLetterGuessingGame() {
-  letterToGuess = chooseRandomLetter();
-  showLetter(letterToGuess);
-}
+  if (isJustStarted) {
+    numWords = Math.floor(Math.random() * 6) + 5; // Random number between 5 and 10
+    isJustStarted = false;
+  }
 
-function chooseRandomLetter() {
-  return letters[Math.floor(Math.random() * letters.length)];
-}
+  if (numWords === 0) {
+    const textBox = document.getElementById("text-box");
+    textBox.textContent = "Thanks for playing";
+    textBox.style.animation = "appear 0.5s ease-in-out forwards";
+    textBox.classList.remove("red-text", "green-text"); // Remove red-text and green-text classes
+    return;
+  }
 
-function showLetter(letter) {
-  scoreElement.innerHTML = `${letter}`;
-  checkLetter(letter);
-}
+  const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+  const textBox = document.getElementById("text-box");
+  textBox.textContent = randomLetter;
+  textBox.classList.remove("red-text", "green-text");
+  textBox.style.animation = "appear 0.5s ease-in-out forwards";
 
-function checkLetter(letter) {
-  if (letter === letterToGuess) {
-    scoreElement.classList.add("red-text");
-    setTimeout(() => {
-      scoreElement.classList.remove("red-text");
-    }, 1000); // Remove the class after 1 seconds
-    letters.splice(letters.indexOf(letterToGuess), 1);
-    scoreElement.innerHTML = ""; // Remove the content of the rightSide element
-    startLetterGuessingGame();
+  const container = document.getElementById("text-container");
+  const containerRect = container.getBoundingClientRect();
+  const textBoxRect = textBox.getBoundingClientRect();
+  const maxTop = containerRect.height - textBoxRect.height;
+  const maxLeft = containerRect.width - textBoxRect.width;
 
-    if (letters.length === 0) {
-      console.log("You win this part");
+  // Set random top and left positions for the text-box within the container
+  const randomTop = Math.floor(Math.random() * maxTop);
+  const randomLeft = Math.floor(Math.random() * maxLeft);
+  textBox.style.top = `${randomTop}px`;
+  textBox.style.left = `${randomLeft}px`;
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === randomLetter) {
+      score += 10;
+      //const scoreElement = document.getElementById("score");
+      scoreElement.innerHTML = `Score: ${score}`;
+      scoreElement.style.animation = "scoreUpdate 0.5s ease-in-out";
+
+      textBox.classList.add("green-text");
+      textBox.style.animation = "disappear 0.5s ease-in-out forwards";
+    } else if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
+      textBox.classList.add("red-text");
+      textBox.style.animation = "disappear 0.5s ease-in-out forwards";
     }
-  }
+  });
+
+  setTimeout(() => {
+    textBox.classList.add("red-text");
+    textBox.style.animation = "disappear 0.5s ease-in-out forwards";
+  }, 1000);
+
+  numWords--;
+  setTimeout(startLetterGuessingGame, 1500); // Call displayRandomLetter after 1.5 seconds
 }
 
-// code to listen to the key that was inserted
-document.addEventListener("keydown", function (event) {
-  // Ensure that the key pressed is a letter
-  if (letterToGuess && event.key.length === 1 && event.key.match(/[a-z]/i)) {
-    checkLetter(event.key);
-  }
-});
 
 export default startLetterGuessingGame;
