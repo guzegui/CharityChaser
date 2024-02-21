@@ -113,6 +113,7 @@ setInterval(() => {
   timer--;
 }, 1000);
 
+/*
 function animateRightSide() {
   rightSide.innerHTML = `
   <div class="score">
@@ -120,10 +121,13 @@ function animateRightSide() {
   </div>
   `;
 }
+*/
+
+let isLetterGuessingGameActive = false;
 
 function animate() {
   animateLeftSide();
-  animateRightSide();
+  //animateRightSide();
   let isPlayerNextToPedestrian = false;
 
   console.log("animate");
@@ -150,9 +154,9 @@ function animate() {
   });
 
   // If the player is next to any pedestrian, exit the function
-  if (isPlayerNextToPedestrian) {
+  if (isPlayerNextToPedestrian && !isLetterGuessingGameActive) {
     console.log("collisionnnnnnnnnn");
-    startLetterGuessingGame();
+    isLetterGuessingGameActive = startLetterGuessingGame(isLetterGuessingGameActive)
     return;
   }
 

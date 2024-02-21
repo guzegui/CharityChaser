@@ -8,22 +8,14 @@ body {
   display: none;
 }
 
-/* #game-container {
-    display: flex;
-    width: 100vw;
-    padding: 20px 0px;
-    justify-content: center;
-  } */
 
-/* Container div */
+/*
 #game-container {
   position: relative;
   width: 800px;
   height: 400px;
   display: inline-block;
 }
-
-/*
 
 
 #game-screen {
@@ -78,11 +70,8 @@ body {
 #left-side,
 #right-side {
   background-color: #870007;
-}
-
-#left-side,
-#right-side {
   flex: 0 0 100px;
+  font-size: 2rem;
 }
 
 #bottom-container {

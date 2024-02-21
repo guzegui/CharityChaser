@@ -5,7 +5,7 @@ let isJustStarted = true;
 
 const scoreElement = document.getElementById("score");
 
-function startLetterGuessingGame() {
+function startLetterGuessingGame(isLetterGuessingGameActive) {
   if (isJustStarted) {
     numWords = Math.floor(Math.random() * 6) + 5; // Random number between 5 and 10
     isJustStarted = false;
@@ -16,7 +16,8 @@ function startLetterGuessingGame() {
     textBox.textContent = "Thanks for playing";
     textBox.style.animation = "appear 0.5s ease-in-out forwards";
     textBox.classList.remove("red-text", "green-text"); // Remove red-text and green-text classes
-    return;
+    isLetterGuessingGameActive = false;
+    return isLetterGuessingGameActive;
   }
 
   const randomLetter = letters[Math.floor(Math.random() * letters.length)];
