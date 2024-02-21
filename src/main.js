@@ -123,9 +123,11 @@ function animateRightSide() {
 }
 */
 
-let isLetterGuessingGameActive = false;
+export let isLetterGuessingGameActive = false;
 
-function animate() {
+export function animate() {
+  // Store the exact frame id to pause and resume animations
+  const animationId = window.requestAnimationFrame(animate);
   animateLeftSide();
   //animateRightSide();
   let isPlayerNextToPedestrian = false;
@@ -153,12 +155,11 @@ function animate() {
     return player.position.isNextTo(player, pedestrian, player.width);
   });
 
-  // If the player is next to any pedestrian, exit the function
-  if (isPlayerNextToPedestrian && !isLetterGuessingGameActive) {
-    console.log("collisionnnnnnnnnn");
-    isLetterGuessingGameActive = startLetterGuessingGame(isLetterGuessingGameActive)
-    return;
-  }
+  let isMoving = true;
+
+  console.log(animationId);
+
+  //if (isLetterGuessingGameActive) return;
 
   // Move the pedestrians
   pedestrians.forEach((pedestrian, index) => {
@@ -170,7 +171,22 @@ function animate() {
     }
   });
 
-  let isMoving = true;
+  
+  // If the player is next to any pedestrian, exit the function
+  //if (isPlayerNextToPedestrian && !isLetterGuessingGameActive)
+  if (isPlayerNextToPedestrian) {
+    console.log("collisionnnnnnnnnn");
+    console.log(animationId);
+    isPlayerNextToPedestrian = false;
+    //isLetterGuessingGameActive = true;
+    window.cancelAnimationFrame(animationId);
+    startLetterGuessingGame();
+    return;
+  }
+
+
+
+  //let isMoving = true;
 
   if (keys.ArrowUp) {
     isMoving = boundaries[0].checkAllCollisions(
@@ -205,7 +221,6 @@ function animate() {
     );
     if (isMoving) player.position.x += 1;
   }
-  window.requestAnimationFrame(animate);
 }
 
 console.log("get ready");
@@ -247,3 +262,5 @@ window.addEventListener("keyup", (event) => {
       break;
   }
 });
+
+export default animate;
