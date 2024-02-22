@@ -123,14 +123,14 @@ function animateRightSide() {
 }
 */
 
-export let isLetterGuessingGameActive = false;
+let isLetterGuessingGameActive = false;
 
 export function animate() {
+  
+  let isLetterGuessingGameActive = false;
   // Store the exact frame id to pause and resume animations
   const animationId = window.requestAnimationFrame(animate);
   animateLeftSide();
-  //animateRightSide();
-  let isPlayerNextToPedestrian = false;
 
   console.log("animate");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -150,17 +150,6 @@ export function animate() {
     pedestrian.draw(ctx);
   });
 
-  // Check if the player is next to any pedestrian
-  isPlayerNextToPedestrian = pedestrians.some((pedestrian) => {
-    return player.position.isNextTo(player, pedestrian, player.width);
-  });
-
-  let isMoving = true;
-
-  console.log(animationId);
-
-  //if (isLetterGuessingGameActive) return;
-
   // Move the pedestrians
   pedestrians.forEach((pedestrian, index) => {
     if (!pedestrian.isLastPosition()) {
@@ -171,21 +160,34 @@ export function animate() {
     }
   });
 
-  
+  // Check if the player is next to any pedestrian
+  let isPlayerNextToPedestrian = pedestrians.some((pedestrian) => {
+    return player.position.isNextTo(player, pedestrian, player.width);
+  });
+
+  let isMoving = true;
+
+  console.log(animationId);
+
   // If the player is next to any pedestrian, exit the function
   //if (isPlayerNextToPedestrian && !isLetterGuessingGameActive)
   if (isPlayerNextToPedestrian) {
-    console.log("collisionnnnnnnnnn");
-    console.log(animationId);
-    isPlayerNextToPedestrian = false;
-    //isLetterGuessingGameActive = true;
-    window.cancelAnimationFrame(animationId);
-    startLetterGuessingGame();
-    return;
+    if (!isLetterGuessingGameActive) {
+      console.log("collisionnnnnnnnnn");
+      console.log(animationId);
+      let collidedPedestrian = pedestrians.find((pedestrian) => {
+        return player.position.isNextTo(player, pedestrian, player.width);
+      });
+      isPlayerNextToPedestrian = false;
+      isLetterGuessingGameActive = true;
+      window.cancelAnimationFrame(animationId);
+      startLetterGuessingGame(collidedPedestrian);
+    }
   }
 
+  isLetterGuessingGameActive = false;
 
-
+  
   //let isMoving = true;
 
   if (keys.ArrowUp) {

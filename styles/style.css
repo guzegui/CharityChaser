@@ -112,6 +112,9 @@ body {
 .green-text {
   color: green;
 }
+.black-text {
+  color:black;
+}
 
 @keyframes appear {
   0% {

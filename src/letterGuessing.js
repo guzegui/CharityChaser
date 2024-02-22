@@ -1,14 +1,86 @@
 import animate from "./main.js";
+import Pedestrian from "./Pedestrian.js";
 
-let letters = ["a", "s", "d", "f"];
+let letters = ["q", "w"];
 let score = 0;
-let numWords = 0;
-let isJustStarted = true;
-let listenToLetters = null;
+let currentRound = 1;
+
+// Generate a random number of rounds between 0 and 5 using Math.random
+
+let totalRounds = Math.floor(Math.random() * 6);
 
 const scoreElement = document.getElementById("score");
+const textBox = document.getElementById("text-box");
 
-function startLetterGuessingGame() {
+document.addEventListener("keydown", handleInput);
+document.addEventListener("keypress", handleKeyPress);
+
+function startLetterGuessingGame(collidedPedestrian) {
+  if (currentRound > totalRounds) {
+    endLetterGuessingGame(collidedPedestrian);
+    animate();
+  } else {
+    // Choose a random letter and display it
+    const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+    textBox.style.color = "black";
+    textBox.style.animation = "appear 0.5s ease-in-out forwards";
+    textBox.textContent = randomLetter;
+    setTimeout(() => {
+      if (randomLetter === textBox.textContent) {
+        textBox.style.color = "green";
+      } else {
+        textBox.style.color = "red";
+      }
+      textBox.style.animation = "disappear 0.5s ease-in-out forwards";
+      setTimeout(() => {
+        textBox.style.animation = "";
+        scoreElement.style.animation = "";
+        currentRound++;
+        startLetterGuessingGame();
+      }, 500); // Changed from 1000 to 500
+    }, 1500); // Changed from 1000 to 1500
+  }
+}
+
+function handleInput(event) {
+  let letter = event.key;
+  if (letter === textBox.textContent) {
+    textBox.style.color = "green";
+    score += 10;
+    scoreElement.textContent = "Score: " + score;
+    scoreElement.style.animation = "appear 0.5s ease-in-out forwards";
+  } else {
+    textBox.style.color = "red";
+  }
+}
+
+function handleKeyPress(event) {
+  event.preventDefault();
+}
+
+function endLetterGuessingGame(collidedPedestrian) {
+  currentRound = 0;
+  textBox.textContent = "Gotta go! I'm very busy, you know";
+  //textBox.style.animation = "appear 0.5s ease-in-out forwards";
+  //textBox.style.animation = "disappear 0.5s ease-in-out forwards";
+  textBox.style.animation = "";
+  const moveInterval = setInterval(() => {
+    collidedPedestrian.move();
+    moveCount++;
+    if (moveCount >= 10) {
+      clearInterval(moveInterval);
+    }
+  }, 100);
+
+  collidedPedestrian.move();
+  document.removeEventListener("input", handleInput);
+  document.removeEventListener("keypress", handleKeyPress);
+  //animate();
+  //animate();
+}
+
+/*
+
   if (isJustStarted) {
     numWords = Math.floor(Math.random() * 6) + 5; // Random number between 5 and 10
     isJustStarted = false;
@@ -70,6 +142,6 @@ function startLetterGuessingGame() {
 
     numWords--;
   }
-}
+  */
 
 export default startLetterGuessingGame;
