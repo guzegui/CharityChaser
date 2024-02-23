@@ -98,7 +98,7 @@ export class Game {
     const playerImage = new Image();
     // playerImage.src = "../assets/characters/player/Character1M_1_idle_0.jpg"; //64*64px
     playerImage.src =
-      "../assets/characters/player/Character1M_1_idle_0_SMALL.jpg"; //30PX
+      "../assets/Character1M1idle0SMALL.jpg"; //30PX
 
     this.playerImage = playerImage;
   }
@@ -113,12 +113,12 @@ export class Game {
   initPedestrians(numPedestrians) {
     // Import pedestrian images as string array - 3 females and 2 males
     const pedestrianSrc = [
-      "../assets/characters/pedestrians/Character1F_1_idle_0.jpg",
-      "../assets/characters/pedestrians/Character1F_2_idle_0.jpg",
-      "../assets/characters/pedestrians/Character1F_3_idle_0.jpg",
-      "../assets/characters/pedestrians/Character2M_2_idle_0.jpg",
-      "../assets/characters/pedestrians/Character2M_3_idle_0.jpg",
-      "../assets/characters/pedestrians/Character3M_3_idle_0.jpg",
+      "../assets/Character1F1idle0.jpg",
+      "../assets/Character1F2idle0.jpg",
+      "../assets/Character1F3idle0.jpg",
+      "../assets/Character2M2idle0.jpg",
+      "../assets/Character2M3idle0.jpg",
+      "../assets/Character3M3idle0.jpg",
     ];
 
     // Initialize pedestrian array
