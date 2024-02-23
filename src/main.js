@@ -13,6 +13,9 @@ import Game from "./Game.js";
 // create Game object
 let game = new Game();
 
+
+game.initTimer();
+game.initScore();
 game.gameLoop();
 
 

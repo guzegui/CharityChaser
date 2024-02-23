@@ -13,6 +13,7 @@ canvas.width = 800; // 50 rows
 canvas.height = 400; // 25 columns
 const leftSide = document.getElementById("left-side");
 const rightSide = document.getElementById("right-side");
+const scoreElement = document.getElementById("score");
 
 export class Game {
   constructor() {
@@ -220,6 +221,10 @@ export class Game {
     */
   }
 
+  initScore() {
+    scoreElement.innerHTML = `Score: ${this.score}`;
+  }
+
   gameLoop() {
     // Store the exact frame id to pause and resume animations
     const animationId = window.requestAnimationFrame(() => this.gameLoop());
@@ -227,24 +232,6 @@ export class Game {
 
     this.updateTimer();
     this.renderGameElements();
-    /*
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Rerender the level
-      ctx.drawImage(this.levelImage, 0, 0);
-      // Render the boundaries
-      this.boundaries.forEach((boundary) => {
-        boundary.draw(ctx);
-      });
-      // Render the player
-      this.player.draw(ctx);
-      // Render the foreground
-      ctx.drawImage(this.foregroundImage, 0, 0);
-    
-      // Render the pedestrians
-      this.pedestrians.forEach((pedestrian) => {
-        pedestrian.draw(ctx);
-      });
-      */
 
     this.moveAllPedestrians();
 
