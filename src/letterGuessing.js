@@ -1,4 +1,4 @@
-import animate from "./main.js";
+import Game from "./Game.js";
 
 let letters = ["q", "w"];
 let score = 0;
@@ -14,10 +14,10 @@ const textBox = document.getElementById("text-box");
 document.addEventListener("keydown", handleInput);
 document.addEventListener("keypress", handleKeyPress);
 
-function startLetterGuessingGame() {
+export function startLetterGuessingGame(game) {
   if (currentRound > totalRounds) {
     endLetterGuessingGame();
-    animate();
+    game.gameLoop();
   } else {
     // Choose a random letter and display it
     const randomLetter = letters[Math.floor(Math.random() * letters.length)];
@@ -35,7 +35,7 @@ function startLetterGuessingGame() {
         textBox.style.animation = "";
         scoreElement.style.animation = "";
         currentRound++;
-        startLetterGuessingGame();
+        startLetterGuessingGame(game);
       }, 500); // Changed from 1000 to 500
     }, 1500); // Changed from 1000 to 1500
   }
@@ -65,8 +65,8 @@ function endLetterGuessingGame() {
   textBox.style.animation = "";
   document.removeEventListener("input", handleInput);
   document.removeEventListener("keypress", handleKeyPress);
-  //animate();
-  //animate();
+  //gameLoop();
+  //gameLoop();
 }
 
 /*
@@ -81,7 +81,7 @@ function endLetterGuessingGame() {
     textBox.textContent = "Thanks for playing";
     textBox.style.animation = "appear 0.5s ease-in-out forwards";
     document.removeEventListener("keydown", listenToLetters);
-    animate();
+    gameLoop();
     setTimeout(() => {
       textBox.classList.remove("red-text", "green-text"); // Remove red-text and green-text classes
       textBox.style.animation = "disappear 0.5s ease-in-out forwards";

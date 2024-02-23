@@ -222,12 +222,12 @@ const pedestrian = new Pedestrian({
   path: path,
 });
 
-function animate() {
+function gameLoop() {
   window.requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   pedestrian.move();
   pedestrian.draw(ctx);
 }
 
-animate();
+gameLoop();
 */
