@@ -81,7 +81,8 @@ for (let i = 0; i < 20; i++) {
         Math.floor(Math.random() * canvas.height)
       ),
       pedestrianImage,
-      0.5
+      0.5,
+      i
     )
   );
 }
@@ -126,7 +127,6 @@ function animateRightSide() {
 let isLetterGuessingGameActive = false;
 
 export function animate() {
-  
   let isLetterGuessingGameActive = false;
   // Store the exact frame id to pause and resume animations
   const animationId = window.requestAnimationFrame(animate);
@@ -160,9 +160,14 @@ export function animate() {
     }
   });
 
+  let pedestrianCollisionId = null;
   // Check if the player is next to any pedestrian
   let isPlayerNextToPedestrian = pedestrians.some((pedestrian) => {
-    return player.position.isNextTo(player, pedestrian, player.width);
+    if (player.position.isNextTo(player, pedestrian, player.width)) {
+      pedestrian.hasCollided = true;
+      pedestrianCollisionId = pedestrian.id;
+      return true;
+    }
   });
 
   let isMoving = true;
@@ -171,23 +176,26 @@ export function animate() {
 
   // If the player is next to any pedestrian, exit the function
   //if (isPlayerNextToPedestrian && !isLetterGuessingGameActive)
-  if (isPlayerNextToPedestrian) {
-    if (!isLetterGuessingGameActive) {
-      console.log("collisionnnnnnnnnn");
-      console.log(animationId);
+  if (
+    isPlayerNextToPedestrian &&
+    !player.hasAlreadyCollidedWith(pedestrianCollisionId)
+  ) {
+    console.log("collisionnnnnnnnnn");
+    console.log(animationId);
+    player.hasCollidedWith.push(pedestrianCollisionId)
+    /*
       let collidedPedestrian = pedestrians.find((pedestrian) => {
         return player.position.isNextTo(player, pedestrian, player.width);
       });
-      isPlayerNextToPedestrian = false;
-      isLetterGuessingGameActive = true;
-      window.cancelAnimationFrame(animationId);
-      startLetterGuessingGame(collidedPedestrian);
-    }
+*/
+    isPlayerNextToPedestrian = false;
+    isLetterGuessingGameActive = true;
+    window.cancelAnimationFrame(animationId);
+    startLetterGuessingGame();
   }
 
   isLetterGuessingGameActive = false;
 
-  
   //let isMoving = true;
 
   if (keys.ArrowUp) {

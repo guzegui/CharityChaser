@@ -3,12 +3,14 @@ import Position from "./Position.js";
 import Boundary from "./Boundary.js";
 
 export class Pedestrian extends Sprite {
-  constructor(position, image, speed) {
+  constructor(position, image, speed, id) {
     super(position, image, speed);
     this.setPath();
     this.pathNum = 0;
     this.position = this.path[0];
     this.targetPosition = this.path[1];
+    this.hasCollided = false;
+    this.id = id;
   }
   move() {
     if (this.position.isSamePositions(this.targetPosition)) {

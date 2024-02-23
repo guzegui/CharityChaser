@@ -1,5 +1,4 @@
 import animate from "./main.js";
-import Pedestrian from "./Pedestrian.js";
 
 let letters = ["q", "w"];
 let score = 0;
@@ -15,9 +14,9 @@ const textBox = document.getElementById("text-box");
 document.addEventListener("keydown", handleInput);
 document.addEventListener("keypress", handleKeyPress);
 
-function startLetterGuessingGame(collidedPedestrian) {
+function startLetterGuessingGame() {
   if (currentRound > totalRounds) {
-    endLetterGuessingGame(collidedPedestrian);
+    endLetterGuessingGame();
     animate();
   } else {
     // Choose a random letter and display it
@@ -58,21 +57,12 @@ function handleKeyPress(event) {
   event.preventDefault();
 }
 
-function endLetterGuessingGame(collidedPedestrian) {
+function endLetterGuessingGame() {
   currentRound = 0;
   textBox.textContent = "Gotta go! I'm very busy, you know";
   //textBox.style.animation = "appear 0.5s ease-in-out forwards";
   //textBox.style.animation = "disappear 0.5s ease-in-out forwards";
   textBox.style.animation = "";
-  const moveInterval = setInterval(() => {
-    collidedPedestrian.move();
-    moveCount++;
-    if (moveCount >= 10) {
-      clearInterval(moveInterval);
-    }
-  }, 100);
-
-  collidedPedestrian.move();
   document.removeEventListener("input", handleInput);
   document.removeEventListener("keypress", handleKeyPress);
   //animate();
