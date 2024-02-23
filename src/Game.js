@@ -224,7 +224,7 @@ export class Game {
     // Store the exact frame id to pause and resume animations
     const animationId = window.requestAnimationFrame(() => this.gameLoop());
     //this.renderGameElements();
-    
+
     this.updateTimer();
     this.renderGameElements();
     /*
@@ -254,8 +254,6 @@ export class Game {
 
     let isPlayerMoving = true;
 
-
-   
     // If the player has collided with a new pedestrian
     if (!this.player.hasAlreadyCollidedWith(pedestrianCollisionId)) {
       console.log("collisionnnnnnnnnn");
@@ -299,8 +297,6 @@ export class Game {
       );
       if (isPlayerMoving) this.player.position.x += 1;
     }
-
-    
   }
 }
 
