@@ -163,19 +163,23 @@ export class Game {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Render the level, boundaries, player and foreground
 
-    
     this.levelImage.onload = () => {
       ctx.drawImage(this.levelImage, 0, 0);
     };
-    
+
     this.boundaries.forEach((boundary) => {
       boundary.draw(ctx);
     });
     if (this.player == null) {
       this.player = this.createPlayer();
     }
-    this.player.draw(ctx);
-    ctx.drawImage(this.foregroundImage, 0, 0);
+    this.playerImage.onload = () => {
+      this.player.draw(ctx);
+    };
+
+    this.foregroundImage.onload = () => {
+      ctx.drawImage(this.foregroundImage, 0, 0);
+    };
 
     if (this.pedestrians == null) {
       this.pedestrians = this.initPedestrians(20);
@@ -187,7 +191,7 @@ export class Game {
 
     // Render the pedestrians
     this.pedestrians.forEach((pedestrian) => {
-      pedestrian.draw(ctx);
+      pedestrian.image.onload = () => pedestrian.draw(ctx);
     });
   }
 
@@ -381,7 +385,7 @@ export class Game {
 
     // Start the game loop again
     game.gameLoop();
-    
+
     /*
     
     window.cancelAnimationFrame(this.animationId);
