@@ -11,25 +11,25 @@
     <!-- <main> -->
     <!-- #game-intro -->
     <div id="game-intro">
-      <img src="./assets/logo.png" alt="" class="logo" />
+      <img src="./assets/introPicture.jpg" alt="" class="logo" />
       <br />
       <button id="start-button">Start Game</button>
       <p>
         Use the letters W, A, S, D to control your player. <br />
-        Once you stop someone, press the letters that appear <br> 
+        Once you stop someone, press the letters that appear <br />
         at the bottom of the screen to get points
       </p>
     </div>
 
+    <
     <div id="game-container">
       <div id="top-container">
-        <div id="left-side">
-          <!-- timer -->
-        </div>
-
-        <canvas id="game-screen"></canvas>
-        <div id="right-side">
-          <div id="score"></div>
+        <div class="wrapper">
+          <div id="left-side"></div>
+          <canvas id="game-screen"></canvas>
+          <div id="right-side">
+            <div id="score"></div>
+          </div>
         </div>
       </div>
       <div id="bottom-container">
@@ -41,13 +41,13 @@
 
     <!-- #game-end is initially hidden using CSS style display: none -->
     <div id="game-end">
-      <img src="./assets/logo.png" alt="" class="logo-img" />
       <h1>Game Over</h1>
-      <br />
+      <img src="./assets/gameOverPicture.jpg" alt="" class="logo-img" />
+      <br/>
       <button id="restart-button">Restart</button>
     </div>
     <!-- </main> -->
-    <!-- <script type="module" src="./src/level1.js"></script> -->
+    <!-- <script type="module" src="./src/level1.jss"></script> -->
     <script type="module" src="./src/Position.js"></script>
     <script type="module" src="./src/Sprite.js"></script>
     <script type="module" src="./src/collisions.js"></script>

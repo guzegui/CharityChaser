@@ -1,12 +1,38 @@
 import Game from "./Game.js";
 
-let letters = ["q", "w"];
+const letters = [
+  "b",
+  "c",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "t",
+  "u",
+  "v",
+  "x",
+  "y",
+  "z",
+];
+
 let score = 0;
 
 // Generate a random number of rounds between 0 and 5 using Math.random
 
 let currentRound = setCurrentRound();
 let totalRounds = setRandomRounds();
+let randomLetter = setRandomLetter();
+let letterGuessed = false;
 
 const scoreElement = document.getElementById("score");
 const textBox = document.getElementById("text-box");
@@ -21,8 +47,9 @@ export function startLetterGuessingGame(game) {
     endLetterGuessingGame();
     game.gameLoop();
   } else {
+    letterGuessed = false;
     // Choose a random letter, set color and animation
-    const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+    randomLetter = setRandomLetter();
     textBox.style.color = "black";
     textBox.style.animation = "appear 0.5s ease-in-out forwards";
 
@@ -30,6 +57,12 @@ export function startLetterGuessingGame(game) {
     let randomDisplay = getRandomDisplay();
 
     // Render the text box and display it
+    textBox.style.display = "flex";
+    textBox.style.alignItems = "center";
+    textBox.style.justifyContent = "center";
+    textBox.style.flexDirection = "column";
+
+    textBox.style.fontSize = "2rem";
     textBox.style.top = `${randomDisplay.top}px`;
     textBox.style.left = `${randomDisplay.left}px`;
     textBox.textContent = randomLetter;
@@ -44,6 +77,7 @@ export function startLetterGuessingGame(game) {
         textBox.style.animation = "";
         scoreElement.style.animation = "";
         currentRound++;
+        letterGuessed = true;
         startLetterGuessingGame(game);
       }, 500); // Changed from 1000 to 500
     }, 1500); // Changed from 1000 to 1500
@@ -51,14 +85,17 @@ export function startLetterGuessingGame(game) {
 }
 
 function handleInput(event) {
-  let letter = event.key;
-  if (letter === textBox.textContent) {
-    textBox.style.color = "green";
-    score += 10;
-    scoreElement.textContent = "Score: " + score;
-    scoreElement.style.animation = "appear 0.5s ease-in-out forwards";
-  } else {
-    textBox.style.color = "red";
+  if (currentRound <= totalRounds) {
+    let letter = event.key;
+    if (letter === randomLetter && event.key.length === 1 && !letterGuessed) {
+      textBox.style.color = "green";
+      score += 10;
+      scoreElement.textContent = "Score: " + score;
+      scoreElement.style.animation = "appear 0.5s ease-in-out forwards";
+      letterGuessed = true;
+    } else {
+      textBox.style.color = "red";
+    }
   }
 }
 
@@ -76,6 +113,11 @@ function setRandomRounds() {
   return totalRounds;
 }
 
+function setRandomLetter() {
+  let randomLetter = letters[Math.floor(Math.random() * letters.length)];
+  return randomLetter;
+}
+
 function endLetterGuessingGame() {
   currentRound = setCurrentRound(currentRound);
   totalRounds = setRandomRounds(totalRounds);
@@ -83,14 +125,26 @@ function endLetterGuessingGame() {
   document.removeEventListener("keypress", handleKeyPress);
 
   // Center the display
-  textBox.style.color = "black";
   textBox.style.animation = "appear 0.5s ease-in-out forwards";
   const centeredDisplay = getCenteredDisplay();
   textBox.style.top = `${centeredDisplay.top}px`;
   textBox.style.left = `${centeredDisplay.left}px`;
+
+  // center textbox inside container using flex layout
+  textBox.style.display = "flex";
+  textBox.style.alignItems = "center";
+  textBox.style.justifyContent = "center";
+  textBox.style.flexDirection = "column";
+
+  // set font size to 1 rem
+  textBox.style.fontSize = "2rem";
+
+  textBox.style.color = "black";
   textBox.textContent = "Gotta go! I'm very busy, you know";
-  textBox.style.animation = "disappear 0.5s ease-in-out forwards";
-  textBox.style.animation = "";
+  // add a one second timeout
+  setTimeout(() => {
+    textBox.style.animation = "disappear 0.5s ease-in-out forwards";
+  }, 1000); // Changed from 1000 to 1500
 }
 
 function getRandomDisplay() {
