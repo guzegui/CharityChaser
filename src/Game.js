@@ -239,7 +239,6 @@ export class Game {
     console.log(this.animationId);
 
     if (!this.isStartAgain) {
-      this.isStartAgain = true;
       const animationId = window.requestAnimationFrame(
         this.gameLoop.bind(this)
       );
