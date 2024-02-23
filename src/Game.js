@@ -73,11 +73,11 @@ export class Game {
   loadLevelImages() {
     // Load level as an image
     this.levelImage = new Image();
-    this.levelImage.src = "../assets/level1.png"; //800 * 400
+    this.levelImage.src = "../assets/level1.jpg"; //800 * 400
 
     // Load foreground as an image
     this.foregroundImage = new Image();
-    this.foregroundImage.src = "../assets/foreground.png";
+    this.foregroundImage.src = "../assets/foreground.jpg";
 
     this.levelImage.onload = () => {
       // Image is fully loaded, you can use it now
@@ -96,9 +96,9 @@ export class Game {
   loadPlayerImage() {
     // Load player as an image
     const playerImage = new Image();
-    // playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png"; //64*64px
+    // playerImage.src = "../assets/characters/player/Character1M_1_idle_0.jpg"; //64*64px
     playerImage.src =
-      "../assets/characters/player/Character1M_1_idle_0_SMALL.png"; //30PX
+      "../assets/characters/player/Character1M_1_idle_0_SMALL.jpg"; //30PX
 
     this.playerImage = playerImage;
   }
@@ -113,12 +113,12 @@ export class Game {
   initPedestrians(numPedestrians) {
     // Import pedestrian images as string array - 3 females and 2 males
     const pedestrianSrc = [
-      "../assets/characters/pedestrians/Character1F_1_idle_0.png",
-      "../assets/characters/pedestrians/Character1F_2_idle_0.png",
-      "../assets/characters/pedestrians/Character1F_3_idle_0.png",
-      "../assets/characters/pedestrians/Character2M_2_idle_0.png",
-      "../assets/characters/pedestrians/Character2M_3_idle_0.png",
-      "../assets/characters/pedestrians/Character3M_3_idle_0.png",
+      "../assets/characters/pedestrians/Character1F_1_idle_0.jpg",
+      "../assets/characters/pedestrians/Character1F_2_idle_0.jpg",
+      "../assets/characters/pedestrians/Character1F_3_idle_0.jpg",
+      "../assets/characters/pedestrians/Character2M_2_idle_0.jpg",
+      "../assets/characters/pedestrians/Character2M_3_idle_0.jpg",
+      "../assets/characters/pedestrians/Character3M_3_idle_0.jpg",
     ];
 
     // Initialize pedestrian array
