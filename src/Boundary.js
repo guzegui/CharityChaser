@@ -1,5 +1,11 @@
 import Position from "./Position.js";
 
+/**
+ *
+ *
+ * @export
+ * @class Boundary
+ */
 export class Boundary {
   constructor(position, pixelSize) {
     this.position = position;
@@ -7,11 +13,27 @@ export class Boundary {
     this.width = pixelSize;
     this.height = pixelSize;
   }
+  /**
+   *
+   *
+   * @param {*} ctx
+   * @memberof Boundary
+   */
   draw(ctx) {
     ctx.fillStyle = "rgba(255, 0, 0, 0)";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
+  /**
+   *
+   *
+   * @param {*} player
+   * @param {*} obstacle
+   * @param {*} xOffset
+   * @param {*} yOffset
+   * @return {*} 
+   * @memberof Boundary
+   */
   isCollision(player, obstacle, xOffset, yOffset) {
     return (
       player.position.x + player.width >= obstacle.position.x + xOffset &&
@@ -20,10 +42,18 @@ export class Boundary {
       player.position.y <= obstacle.position.y + yOffset + obstacle.height
     );
   }
+  /**
+   *
+   *
+   * @param {*} keyPressed
+   * @param {*} boundaries
+   * @param {*} character
+   * @param {*} isMoving
+   * @return {*} 
+   * @memberof Boundary
+   */
   checkAllCollisions(keyPressed, boundaries, character, isMoving) {
     let nextBoundary;
-
-    //const boundariesShallowCopy = [...boundaries];
 
     for (let i = 0; i < boundaries.length; i++) {
       nextBoundary = boundaries[i];

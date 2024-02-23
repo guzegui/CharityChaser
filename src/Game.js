@@ -163,11 +163,11 @@ export class Game {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Render the level, boundaries, player and foreground
 
-    ctx.drawImage(this.levelImage, 0, 0);
-    /*
+    
     this.levelImage.onload = () => {
+      ctx.drawImage(this.levelImage, 0, 0);
     };
-    */
+    
     this.boundaries.forEach((boundary) => {
       boundary.draw(ctx);
     });
