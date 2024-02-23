@@ -33,7 +33,6 @@ export class Game {
     this.pedestrians = null;
     this.timer = 60;
     this.score = 0;
-    this.highScore = 0;
     this.isStartAgain = false;
     this.animationId = null;
 
@@ -336,14 +335,6 @@ export class Game {
     scoreElement.textContent = `Score: ${this.score}`;
     gameEnd.appendChild(scoreElement);
 
-    // Display the high score and update it if necessary
-    const highScoreElement = document.createElement("p");
-    if (this.score > this.highScore) {
-      this.highScore = this.score;
-    }
-    highScoreElement.textContent = `High Score: ${this.highScore}`;
-    gameEnd.appendChild(highScoreElement);
-
     // Display the number of pedestrians stopped
     const stoppedPedestriansElement = document.createElement("p");
     stoppedPedestriansElement.textContent = `You have stopped ${this.player.hasCollidedWith.length} pedestrians`;
@@ -351,7 +342,7 @@ export class Game {
 
     // Update the restart button text
 
-    restartButton.addEventListener("click", () => this.restartGame());
+    restartButton.addEventListener("click", () => window.location.reload());
   }
 
   restartGame() {

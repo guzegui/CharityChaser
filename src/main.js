@@ -1,12 +1,3 @@
-//import Level1 from "./Level1";
-//
-import startLetterGuessingGame from "./letterGuessing.js";
-import Sprite from "./Sprite.js";
-import collisions from "./collisions.js";
-import Boundary from "./Boundary.js";
-import Player from "./Player.js";
-import Pedestrian from "./Pedestrian.js";
-import Position from "./Position.js";
 import Game from "./Game.js";
 
 
