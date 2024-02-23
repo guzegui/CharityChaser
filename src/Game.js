@@ -7,6 +7,9 @@ import Position from "./Position.js";
 import startLetterGuessingGame from "./letterGuessing.js";
 
 // DOM elements
+const gameContainer = document.getElementById("game-container");
+const gameEnd = document.getElementById("game-end");
+
 const canvas = document.getElementById("game-screen");
 const ctx = canvas.getContext("2d");
 canvas.width = 800; // 50 rows
@@ -14,6 +17,7 @@ canvas.height = 400; // 25 columns
 const leftSide = document.getElementById("left-side");
 const rightSide = document.getElementById("right-side");
 const scoreElement = document.getElementById("score");
+const restartButton = document.getElementById("restart-button");
 
 export class Game {
   constructor() {
@@ -30,6 +34,8 @@ export class Game {
     this.timer = 60;
     this.score = 0;
     this.highScore = 0;
+    this.isStartAgain = false;
+    this.animationId = null;
 
     // Player movement controls
     this.keys = {
@@ -227,7 +233,25 @@ export class Game {
 
   gameLoop() {
     // Store the exact frame id to pause and resume animations
+    console.log(this.animationId);
+
+    if (!this.isStartAgain) {
+      const animationId = window.requestAnimationFrame(
+        this.gameLoop.bind(this)
+      );
+      this.animationId = animationId;
+    } else {
+      //const animationId = 1;
+      this.isStartAgain = false;
+      this.restartGameLoop();
+    }
+
+    /*
+    
     const animationId = window.requestAnimationFrame(() => this.gameLoop());
+    const animationId = window.requestAnimationFrame(this.gameLoop());
+    
+    */
     //this.renderGameElements();
 
     this.updateTimer();
@@ -239,16 +263,15 @@ export class Game {
 
     pedestrianCollisionId = this.whichPedestrianCollidedWithPlayer();
 
-    let isPlayerMoving = true;
-
     // If the player has collided with a new pedestrian
     if (!this.player.hasAlreadyCollidedWith(pedestrianCollisionId)) {
       console.log("collisionnnnnnnnnn");
       this.player.addCollision(pedestrianCollisionId);
-      window.cancelAnimationFrame(animationId);
+      window.cancelAnimationFrame(this.animationId);
       startLetterGuessingGame(this);
     }
 
+    let isPlayerMoving = true;
     //let isPlayerMoving = true;
 
     if (this.keys.ArrowUp) {
@@ -284,9 +307,101 @@ export class Game {
       );
       if (isPlayerMoving) this.player.position.x += 1;
     }
+    if (this.isGameOver()) {
+      window.cancelAnimationFrame(this.animationId);
+      this.endScreen();
+    }
+  }
+
+  restartGameLoop() {
+    window.cancelAnimationFrame(this.animationId); // Stop the current animation
+    this.gameLoop(); // Start the game loop again
+  }
+
+  // If pedestrians array is empty or timer is 0, return true
+  isGameOver() {
+    if (this.pedestrians.length == 0 || this.timer == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  endScreen() {
+    gameContainer.style.display = "none";
+    gameEnd.style.display = "block";
+
+    // Display the score
+    const scoreElement = document.createElement("p");
+    scoreElement.textContent = `Score: ${this.score}`;
+    gameEnd.appendChild(scoreElement);
+
+    // Display the high score and update it if necessary
+    const highScoreElement = document.createElement("p");
+    if (this.score > this.highScore) {
+      this.highScore = this.score;
+    }
+    highScoreElement.textContent = `High Score: ${this.highScore}`;
+    gameEnd.appendChild(highScoreElement);
+
+    // Display the number of pedestrians stopped
+    const stoppedPedestriansElement = document.createElement("p");
+    stoppedPedestriansElement.textContent = `You have stopped ${this.player.hasCollidedWith.length} pedestrians`;
+    gameEnd.appendChild(stoppedPedestriansElement);
+
+    // Update the restart button text
+
+    restartButton.addEventListener("click", () => this.restartGame());
+  }
+
+  restartGame() {
+    gameEnd.style.display = "none";
+    gameContainer.style.display = "block";
+
+    //Remove child elements after restart button//
+    let nextSibling = restartButton.nextSibling;
+    while (nextSibling) {
+      gameEnd.removeChild(nextSibling);
+      nextSibling = restartButton.nextSibling;
+    }
+
+    let lastHighScore = this.highScore;
+
+    // Reset properties to their initial values
+    this.score = 0;
+    this.highScore = lastHighScore;
+    this.player = null;
+    this.pedestrians = null;
+    this.isStartAgain = true;
+
+    // Initialize the timer and score
+
+    clearInterval(this.timerInterval); // Stop the timer
+    this.timer = 60; // Set the timer to null
+    this.initTimer();
+    this.initScore();
+
+    // Stop the previous game loop
+
+    window.cancelAnimationFrame(this.animationId);
+
+    // create a new Game object
+    let game = new Game();
+
+    // Start the game loop again
+    game.gameLoop();
+    
+    /*
+    
+    window.cancelAnimationFrame(this.animationId);
+
+    // initialize animation id
+    this.animationId = null;
+
+    // Start the game loop again
+    this.gameLoop();
+    */
   }
 }
 
 export default Game;
-/*
- */
