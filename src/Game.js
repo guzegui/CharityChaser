@@ -113,12 +113,12 @@ export class Game {
   initPedestrians(numPedestrians) {
     // Import pedestrian images as string array - 3 females and 2 males
     const pedestrianSrc = [
-      "./assets/Character1F1idle0.png",
-      "./assets/Character1F2idle0.png",
-      "./assets/Character1F3idle0.png",
-      "./assets/Character2M2idle0.png",
-      "./assets/Character2M3idle0.png",
-      "./assets/Character3M3idle0.png",
+      "./assets/Character1F_1_idle_0.png",
+      "./assets/Character1F_2_idle_0.png",
+      "./assets/Character1F_3_idle_0.png",
+      "./assets/Character2M_2_idle_0.png",
+      "./assets/Character2M_3_idle_0.png",
+      "./assets/Character3M_3_idle_0.png",
     ];
 
     // Initialize pedestrian array
