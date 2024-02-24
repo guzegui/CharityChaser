@@ -79,14 +79,15 @@ export function startLetterGuessingGame(game) {
         currentRound++;
         letterGuessed = true;
         startLetterGuessingGame(game);
-      }, 500); // Changed from 1000 to 500
-    }, 1500); // Changed from 1000 to 1500
+      }, 500);
+    }, 1500);
   }
 }
 
 function handleInput(event) {
   if (currentRound <= totalRounds) {
     let letter = event.key;
+    // Control for number of letters pressed and if letter has been already guessed right
     if (letter === randomLetter && event.key.length === 1 && !letterGuessed) {
       textBox.style.color = "green";
       score += 10;
@@ -141,10 +142,10 @@ function endLetterGuessingGame() {
 
   textBox.style.color = "black";
   textBox.textContent = "Gotta go! I'm very busy, you know";
-  // add a one second timeout
+  // Add a one second timeout for the animation
   setTimeout(() => {
     textBox.style.animation = "disappear 0.5s ease-in-out forwards";
-  }, 1000); // Changed from 1000 to 1500
+  }, 1000);
 }
 
 function getRandomDisplay() {

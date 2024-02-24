@@ -4,13 +4,6 @@ export class Sprite {
     this.position = position;
     this.speed = speed;
     this.setImage(image);
-    /*
-    this.image = image;
-    // frames?? frames = { max: 0}
-    this.image.onload = () => {
-      this.width = this.image.width
-      this.height = this.image.height
-      */
   }
 
   draw(ctx) {
@@ -19,7 +12,6 @@ export class Sprite {
 
   setImage(image) {
     this.image = image;
-    // frames?? frames = { max: 0}
     this.image.onload = () => {
       this.width = this.image.width;
       this.height = this.image.height;
