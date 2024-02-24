@@ -73,7 +73,7 @@ export class Game {
   loadLevelImages() {
     // Load level as an image
     this.levelImage = new Image();
-    this.levelImage.src = "./assets/level1.jpg"; //800 * 400
+    this.levelImage.src = "./assets/level1.png"; //800 * 400
 
     // Load foreground as an image
     this.foregroundImage = new Image();
@@ -96,9 +96,9 @@ export class Game {
   loadPlayerImage() {
     // Load player as an image
     const playerImage = new Image();
-    // playerImage.src = "./assets/characters/player/Character1M_1_idle_0.jpg"; //64*64px
+    // playerImage.src = "./assets/characters/player/Character1M_1_idle_0.png"; //64*64px
     playerImage.src =
-      "./assets/Character1M1idle0SMALL.jpg"; //30PX
+      "./assets/Character1M1idle0SMALL.png"; //30PX
 
     this.playerImage = playerImage;
   }
@@ -113,12 +113,12 @@ export class Game {
   initPedestrians(numPedestrians) {
     // Import pedestrian images as string array - 3 females and 2 males
     const pedestrianSrc = [
-      "./assets/Character1F1idle0.jpg",
-      "./assets/Character1F2idle0.jpg",
-      "./assets/Character1F3idle0.jpg",
-      "./assets/Character2M2idle0.jpg",
-      "./assets/Character2M3idle0.jpg",
-      "./assets/Character3M3idle0.jpg",
+      "./assets/Character1F1idle0.png",
+      "./assets/Character1F2idle0.png",
+      "./assets/Character1F3idle0.png",
+      "./assets/Character2M2idle0.png",
+      "./assets/Character2M3idle0.png",
+      "./assets/Character3M3idle0.png",
     ];
 
     // Initialize pedestrian array
