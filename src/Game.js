@@ -77,7 +77,7 @@ export class Game {
 
     // Load foreground as an image
     this.foregroundImage = new Image();
-    this.foregroundImage.src = "./assets/foreground.jpg";
+    this.foregroundImage.src = "./assets/foreground.png";
 
     this.levelImage.onload = () => {
       // Image is fully loaded, you can use it now
