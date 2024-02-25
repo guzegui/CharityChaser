@@ -92,7 +92,7 @@ export class Game {
     // Load player as an image
     const playerImage = new Image();
     playerImage.src =
-      "./assets/characters/player/Character1M_1_idle_0_SMALL.png"; //30PX
+      "./assets/Character1M1idle0SMALL.png"; //30PX
 
     this.playerImage = playerImage;
   }
@@ -107,12 +107,12 @@ export class Game {
   initPedestrians(numPedestrians) {
     // Import pedestrian images as string array - 3 females and 2 males
     const pedestrianSrc = [
-      "./assets/characters/pedestrians/Character1F_1_idle_0.png",
-      "./assets/characters/pedestrians/Character1F_2_idle_0.png",
-      "./assets/characters/pedestrians/Character1F_3_idle_0.png",
-      "./assets/characters/pedestrians/Character2M_2_idle_0.png",
-      "./assets/characters/pedestrians/Character2M_3_idle_0.png",
-      "./assets/characters/pedestrians/Character3M_3_idle_0.png",
+      "./assets/Character1F_1_idle_0.png",
+      "./assets/Character1F_2_idle_0.png",
+      "./assets/Character1F_3_idle_0.png",
+      "./assets/Character2M_2_idle_0.png",
+      "./assets/Character2M_3_idle_0.png",
+      "./assets/Character3M_3_idle_0.png",
     ];
 
     // Initialize pedestrian array
