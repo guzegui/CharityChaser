@@ -81,78 +81,78 @@ export class Pedestrian extends Sprite {
     );
 
     const path2 = [
-      new Position(11, MAX_UP),
-      new Position(11, 6),
-      new Position(MAX_RIGHT, 6),
+      new Position(13, MAX_UP),
+      new Position(13, 8),
+      new Position(MAX_RIGHT, 8),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const path3 = [
-      new Position(11, MAX_UP),
-      new Position(11, 6),
-      new Position(MAX_LEFT, 6),
+      new Position(13, MAX_UP),
+      new Position(13, 8),
+      new Position(MAX_LEFT, 8),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const path4 = [
-      new Position(MAX_LEFT, 6),
-      new Position(15, 6),
-      new Position(15, MAX_UP),
+      new Position(MAX_LEFT, 8),
+      new Position(17, 8),
+      new Position(17, MAX_UP),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const path5 = [
-      new Position(MAX_LEFT, 6),
-      new Position(15, 6),
-      new Position(15, MAX_DOWN),
+      new Position(MAX_LEFT, 8),
+      new Position(17, 8),
+      new Position(17, MAX_DOWN),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
-    const path6 = [new Position(MAX_LEFT, 6), new Position(MAX_RIGHT, 6)].map(
+    const path6 = [new Position(MAX_LEFT, 8), new Position(MAX_RIGHT, 8)].map(
       (position) => position.multiplyPositions(PIXEL_SIZE)
     );
 
     const path7 = [
-      new Position(MAX_LEFT, 18),
-      new Position(16, 18),
-      new Position(16, MAX_UP),
+      new Position(MAX_LEFT, 20),
+      new Position(18, 20),
+      new Position(18, MAX_UP),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const path8 = [
-      new Position(MAX_LEFT, 18),
-      new Position(16, 18),
-      new Position(16, 6),
-      new Position(MAX_RIGHT, 6),
+      new Position(MAX_LEFT, 20),
+      new Position(18, 20),
+      new Position(18, 8),
+      new Position(MAX_RIGHT, 8),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const path9 = [
-      new Position(20, 20),
-      new Position(20, 7),
-      new Position(MAX_LEFT, 7),
+      new Position(22, 22),
+      new Position(22, 9),
+      new Position(MAX_LEFT, 9),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
-    const path10 = [new Position(20, 20), new Position(20, 4)].map(
+    const path10 = [new Position(22, 22), new Position(22, 6)].map(
       (position) => position.multiplyPositions(PIXEL_SIZE)
     );
 
-    const path11 = [new Position(39, 22), new Position(39, MAX_UP)].map(
+    const path11 = [new Position(41, 24), new Position(41, MAX_UP)].map(
       (position) => position.multiplyPositions(PIXEL_SIZE)
     );
 
     const path12 = [
-      new Position(39, 22),
-      new Position(39, 6),
-      new Position(MAX_LEFT, 6),
+      new Position(41, 24),
+      new Position(41, 8),
+      new Position(MAX_LEFT, 8),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const path13 = [
-      new Position(39, 22),
-      new Position(39, 6),
-      new Position(27, 6),
-      new Position(MAX_UP, 6),
+      new Position(41, 22),
+      new Position(41, 8),
+      new Position(29, 8),
+      new Position(MAX_UP, 8),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const path14 = [
-      new Position(39, 22),
-      new Position(39, 6),
-      new Position(27, 6),
-      new Position(MAX_DOWN, 6),
+      new Position(41, 22),
+      new Position(41, 8),
+      new Position(29, 8),
+      new Position(MAX_DOWN, 8),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     let pathArray = [];
