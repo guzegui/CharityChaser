@@ -4,165 +4,156 @@ import Boundary from "./Boundary.js";
 
 export class Pedestrian extends Sprite {
   constructor(position, image, speed, id) {
-    super(position, image, speed);
+    super(position, image, speed); // Call the super constructor with the appropriate arguments
+    this.speed = speed;
     this.setPath();
+    this.position = new Position(this.path[0].x, this.path[0].y); // Create a deep copy of the first position in the path
     this.pathNum = 0;
-    this.position = this.path[0];
-    this.targetPosition = this.path[1];
+    this.setDiffXandY();
     this.hasCollided = false;
     this.id = id;
   }
   move() {
-    if (this.position.isSamePositions(this.targetPosition)) {
+    if (this.xDiff == 0 && this.yDiff == 0) {
       this.setNextPositionsinPath();
-    }
+    } else {
+      if (this.xDiff != 0) {
+        // if this.xDiff is a positive number then subtract, otherwise add it
+        if (this.xDiff > 0) {
+          this.position.x += this.speed;
+          this.xDiff -= this.speed;
+        } else {
+          this.position.x -= this.speed;
+          this.xDiff += this.speed;
+        }
+      }
 
-    let diff = this.position.diffPositions(this.targetPosition);
-
-    if (diff.x > 0) {
-      this.position.x += this.speed;
-    } else if (diff.x < 0) {
-      this.position.x -= this.speed;
-    }
-
-    if (diff.y > 0) {
-      this.position.y += this.speed;
-    } else if (diff.y < 0) {
-      this.position.y -= this.speed;
+      if (this.yDiff != 0) {
+        // if this.xDiff is a positive number then subtract, otherwise add it
+        if (this.yDiff > 0) {
+          this.position.y += this.speed;
+          this.yDiff -= this.speed;
+        } else {
+          this.position.y -= this.speed;
+          this.yDiff += this.speed;
+        }
+      }
     }
   }
 
   // Load paths into path array and return a random one
+  setNextPositionsinPath() {
+    this.pathNum++;
+    if (this.isLastPosition()) return
+    this.setDiffXandY();
+    this.move();
+  }
+
+  setDiffXandY() {
+    let diff = this.path[this.pathNum].diffPositions(
+      this.path[this.pathNum + 1]
+    );
+    this.xDiff = diff.x;
+    this.yDiff = diff.y;
+  }
   setPath(path) {
     let pathArray = this.setPathArray();
-    this.path = pathArray[Math.floor(Math.random() * pathArray.length)];
+    let pathIndex = Math.floor(Math.random() * pathArray.length);
+    this.path = pathArray[pathIndex];
+    this.pathId = pathIndex;
   }
 
-  setNextPositionsinPath() {
-    this.position = this.targetPosition;
-    this.pathNum++;
-    this.targetPosition = this.path[this.pathNum];
-  }
-
-  isLastPosition(){
+  isLastPosition() {
     return this.pathNum === this.path.length - 1;
   }
 
+  // Set paths in rows, multiply by pixel size and return an array of paths
   setPathArray() {
-    // test path1
-    const path1 = [
-      new Position(500, 100),
-      new Position(200, 100),
-      new Position(200, 200),
-      new Position(100, 200),
-      new Position(100, 100),
-    ];
+    const PIXEL_SIZE = 16;
+    const MAX_RIGHT = 50;
+    const MAX_LEFT = -2;
+    const MAX_UP = -2;
+    const MAX_DOWN = 25;
 
-    // test path2
+    // In Tiled program, coordinate 0,0 starts at top-left corner
+    const path1 = [new Position(11, MAX_UP), new Position(11, MAX_DOWN)].map(
+      (position) => position.multiplyPositions(PIXEL_SIZE)
+    );
+
     const path2 = [
-      new Position(700, 300),
-      new Position(100, 300),
-      new Position(200, 300),
-      new Position(200, 100),
-      new Position(100, 100),
-    ];
-    // test path3
+      new Position(11, MAX_UP),
+      new Position(11, 6),
+      new Position(MAX_RIGHT, 6),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
+
     const path3 = [
-      new Position(200, 500),
-      new Position(100, 500),
-      new Position(200, 500),
-      new Position(200, 100),
-      new Position(100, 100),
-    ];
-    // test path4
+      new Position(11, MAX_UP),
+      new Position(11, 6),
+      new Position(MAX_LEFT, 6),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
+
     const path4 = [
-      new Position(300, 100),
-      new Position(400, 100),
-      new Position(400, 200),
-      new Position(300, 200),
-      new Position(300, 100),
-    ];
+      new Position(MAX_LEFT, 6),
+      new Position(15, 6),
+      new Position(15, MAX_UP),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
-    // test path5
     const path5 = [
-      new Position(300, 300),
-      new Position(400, 300),
-      new Position(400, 400),
-      new Position(300, 400),
-      new Position(300, 300),
-    ];
+      new Position(MAX_LEFT, 6),
+      new Position(15, 6),
+      new Position(15, MAX_DOWN),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
-    // test path6
-    const path6 = [
-      new Position(500, 100),
-      new Position(600, 100),
-      new Position(600, 200),
-      new Position(500, 200),
-      new Position(500, 100),
-    ];
+    const path6 = [new Position(MAX_LEFT, 6), new Position(MAX_RIGHT, 6)].map(
+      (position) => position.multiplyPositions(PIXEL_SIZE)
+    );
 
-    // test path7
     const path7 = [
-      new Position(500, 300),
-      new Position(600, 300),
-      new Position(600, 400),
-      new Position(500, 400),
-      new Position(500, 300),
-    ];
+      new Position(MAX_LEFT, 18),
+      new Position(16, 18),
+      new Position(16, MAX_UP),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
-    // test path8
     const path8 = [
-      new Position(700, 100),
-      new Position(800, 100),
-      new Position(800, 200),
-      new Position(700, 200),
-      new Position(700, 100),
-    ];
+      new Position(MAX_LEFT, 18),
+      new Position(16, 18),
+      new Position(16, 6),
+      new Position(MAX_RIGHT, 6),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
-    // test path9
     const path9 = [
-      new Position(700, 300),
-      new Position(800, 300),
-      new Position(800, 400),
-      new Position(700, 400),
-      new Position(700, 300),
-    ];
+      new Position(20, 20),
+      new Position(20, 7),
+      new Position(MAX_LEFT, 7),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
-    // test path10
-    const path10 = [
-      new Position(900, 100),
-      new Position(1000, 100),
-      new Position(1000, 200),
-      new Position(900, 200),
-      new Position(900, 100),
-    ];
+    const path10 = [new Position(20, 20), new Position(20, 4)].map(
+      (position) => position.multiplyPositions(PIXEL_SIZE)
+    );
 
-    // test path11
-    const path11 = [
-      new Position(900, 300),
-      new Position(1000, 300),
-      new Position(1000, 400),
-      new Position(900, 400),
-      new Position(900, 300),
-    ];
+    const path11 = [new Position(39, 22), new Position(39, MAX_UP)].map(
+      (position) => position.multiplyPositions(PIXEL_SIZE)
+    );
 
-    // test path12
     const path12 = [
-      new Position(1100, 100),
-      new Position(1200, 100),
-      new Position(1200, 200),
-      new Position(1100, 200),
-      new Position(1100, 100),
-    ];
+      new Position(39, 22),
+      new Position(39, 6),
+      new Position(MAX_LEFT, 6),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
-    // test path13
     const path13 = [
-      new Position(1100, 300),
-      new Position(1200, 300),
-      new Position(1200, 400),
-      new Position(1100, 400),
-      new Position(1100, 300),
-    ];
+      new Position(39, 22),
+      new Position(39, 6),
+      new Position(27, 6),
+      new Position(MAX_UP, 6),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
+
+    const path14 = [
+      new Position(39, 22),
+      new Position(39, 6),
+      new Position(27, 6),
+      new Position(MAX_DOWN, 6),
+    ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     let pathArray = [];
     pathArray.push(
@@ -185,3 +176,4 @@ export class Pedestrian extends Sprite {
 }
 
 export default Pedestrian;
+

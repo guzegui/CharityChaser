@@ -18,7 +18,11 @@ export class Position {
     return new Position(this.x + position.x, this.y + position.y);
   }
 
-  //Return true if the position is one pixelOffset from "this"
+  multiplyPositions(factor) {
+    return new Position(this.x * factor, this.y * factor);
+  }
+
+  //Return true if the position is one x or one y from this
   isNextTo(player, pedestrian, pixelOffset) {
     let boundary = new Boundary(
       new Position(pedestrian.x, pedestrian.y),
