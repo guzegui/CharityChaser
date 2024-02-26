@@ -86,11 +86,17 @@ export class Game {
     this.foregroundImage.onload = () => {
       // Image is fully loaded, you can use it now
     };
+    /*
+    // Store images in Game object
+    this.levelImage = levelImage;
+    this.foregroundImage = foregroundImage;
+    */
   }
 
   loadPlayerImage() {
     // Load player as an image
     const playerImage = new Image();
+    // playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png"; //64*64px
     playerImage.src =
       "./assets/Character1M1idle0SMALL.png"; //30PX
 
@@ -126,6 +132,7 @@ export class Game {
         new Pedestrian(new Position(0, 0), pedestrianImage, 0.5, i)
       );
     }
+    pedestrians[0].addDelay(pedestrians);
 
     return pedestrians;
   }
@@ -150,7 +157,10 @@ export class Game {
     // Render the level, boundaries, player and foreground
 
     ctx.drawImage(this.levelImage, 0, 0);
-
+    /*
+    this.levelImage.onload = () => {
+    };
+    */
     this.boundaries.forEach((boundary) => {
       boundary.draw(ctx);
     });
@@ -198,6 +208,16 @@ export class Game {
     });
 
     return collidedPedestrian == undefined ? null : collidedPedestrian.id;
+
+    /*
+    let pedestrianCollisionId = pedestrians.some((pedestrian) => {
+      if (this.player.position.isNextTo(this.player, pedestrian, this.player.width)) {
+        //pedestrian.hasCollided = true;
+        //pedestrianCollisionId = pedestrian.id;
+        return pedestrian.id;
+      }
+    });
+    */
   }
 
   initScore() {
@@ -218,6 +238,14 @@ export class Game {
       this.isStartAgain = false;
       this.restartGameLoop();
     }
+
+    /*
+    
+    const animationId = window.requestAnimationFrame(() => this.gameLoop());
+    const animationId = window.requestAnimationFrame(this.gameLoop());
+    
+    */
+    //this.renderGameElements();
 
     this.updateTimer();
     this.renderGameElements();
@@ -283,9 +311,9 @@ export class Game {
     this.gameLoop(); // Start the game loop again
   }
 
-  // If pedestrians array is empty or timer is 0, return true
+  // If pedestrians array is empty or timer is under 0, return true
   isGameOver() {
-    if (this.pedestrians.length == 0 || this.timer == 0) {
+    if (this.pedestrians.length == 0 || this.timer <= 0) {
       return true;
     } else {
       return false;
@@ -347,6 +375,17 @@ export class Game {
 
     // Start the game loop again
     game.gameLoop();
+
+    /*
+    
+    window.cancelAnimationFrame(this.animationId);
+
+    // initialize animation id
+    this.animationId = null;
+
+    // Start the game loop again
+    this.gameLoop();
+    */
   }
 }
 
