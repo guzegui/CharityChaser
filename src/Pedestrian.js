@@ -146,7 +146,7 @@ export class Pedestrian extends Sprite {
 
     const path12 = [
       new Position(MAX_RIGHT, 6),
-      new Position(39, 6),
+      //new Position(39, 6),
       new Position(MAX_LEFT, 6),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
@@ -168,14 +168,14 @@ export class Pedestrian extends Sprite {
     fromRight.push(path11, path12, path13, path14);
 
     // Adjustments for rendering
-    this.addOnXorYAxis(fromLeftBottom, "x", 1);
-    this.addOnXorYAxis(fromLeftBottom, "y", -1);
-    this.addOnXorYAxis(fromBottom, "x", 3);
+    this.addOnXorYAxis(fromLeftTop, "x", 1);
+    this.addOnXorYAxis(fromLeftTop, "y", -1);
     this.addOnXorYAxis(fromRight, "y", 2);
     this.addOnXorYAxis(fromLeftBottom, "y", 1.5);
     this.addOnXorYAxis(fromLeftBottom, "x", 1);
     this.addOnXorYAxis(fromTop, "x", 2.5);
     this.addOnXorYAxis(fromTop, "y", 2);
+    this.addOnXorYAxis(fromBottom, "x", 3);
 
     let pathArray = [];
     pathArray.push(
