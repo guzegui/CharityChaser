@@ -10,10 +10,10 @@ const MAX_DOWN = 25;
 
 export class Pedestrian extends Sprite {
   constructor(position, image, speed, id) {
-    super(position, image, speed); // Call the super constructor with the appropriate arguments
+    super(position, image, speed);
     this.speed = speed;
     this.setPath();
-    this.position = new Position(this.path[0].x, this.path[0].y); // Create a deep copy of the first position in the path
+    this.position = new Position(this.path[0].x, this.path[0].y);
     this.pathNum = 0;
     this.hasCollided = false;
     this.id = id;
@@ -127,12 +127,6 @@ export class Pedestrian extends Sprite {
     const fromLeftBottom = [];
     fromLeftBottom.push(path7, path8);
 
-    /*const PIXEL_SIZE = 16;
-const MAX_RIGHT = 50;
-const MAX_LEFT = -2;
-const MAX_UP = -2;
-const MAX_DOWN = 25;*/
-
     const path9 = [
       new Position(20, MAX_DOWN),
       new Position(20, 7),
@@ -173,7 +167,16 @@ const MAX_DOWN = 25;*/
     const fromRight = [];
     fromRight.push(path11, path12, path13, path14);
 
-  
+    // Adjustments for rendering
+    this.addOnXorYAxis(fromLeftBottom, "x", 1);
+    this.addOnXorYAxis(fromLeftBottom, "y", -1);
+    this.addOnXorYAxis(fromBottom, "x", 3);
+    this.addOnXorYAxis(fromRight, "y", 2);
+    this.addOnXorYAxis(fromLeftBottom, "y", 1.5);
+    this.addOnXorYAxis(fromLeftBottom, "x", 1);
+    this.addOnXorYAxis(fromTop, "x", 2.5);
+    this.addOnXorYAxis(fromTop, "y", 2);
+
     let pathArray = [];
     pathArray.push(
       path1,
@@ -191,69 +194,29 @@ const MAX_DOWN = 25;*/
       path13,
       path14
     );
-    //pathArray.push(fromBottom, fromLeftBottom, fromLeftTop, fromRight, fromTop);
     return pathArray;
   }
 
   addDelay(pedestrianArray) {
-    /*
-    let pedestriansWithSameStartingPositions =
-      this.findDuplicateStartingPositions(pedestrianArray);
-
-    pedestriansWithSameStartingPositions.sort((a, b) => {
-      if (a.position.x < b.position.x) {
-        return -1;
-      } else if (a.position.x > b.position.x) {
-        return 1;
-      } else {
-        // If the x values are equal, compare the y values
-        if (a.position.y < b.position.y) {
-          return -1;
-        } else if (a.position.y > b.position.y) {
-          return 1;
-        } else {
-          // If both x and y values are equal, keep the original order
-          return 0;
-        }
-      }
-    });
-*/
     let extraCoordinates = 200;
     let factor = 4;
 
     for (let i = 0; i < pedestrianArray.length - 1; i++) {
-      /*if (
-        pedestrianArray[i].path[0].isSamePositions(
-          pedestrianArray[i + 1].path[0]
-        )
-      ) {
-        
-      }
- + i * factor
-
-
-      */
       if (i != 0) {
         switch (true) {
           case pedestrianArray[i + 1].path[0].x / PIXEL_SIZE === MAX_RIGHT:
-            console.log("pedestrianArray[i+1].position is at MAX_RIGHT");
             pedestrianArray[i + 1].path[0].x += extraCoordinates * i;
             break;
           case pedestrianArray[i + 1].path[0].x / PIXEL_SIZE === MAX_LEFT:
-            console.log("pedestrianArray[i+1].position is at MAX_LEFT");
             pedestrianArray[i + 1].path[0].x -= extraCoordinates * i;
             break;
           case pedestrianArray[i + 1].path[0].y / PIXEL_SIZE === MAX_UP:
-            console.log("pedestrianArray[i+1].position is at MAX_UP");
             pedestrianArray[i + 1].path[0].y -= extraCoordinates * i;
             break;
           case pedestrianArray[i + 1].path[0].y / PIXEL_SIZE === MAX_DOWN:
-            console.log("pedestrianArray[i+1].position is at MAX_DOWN");
             pedestrianArray[i + 1].path[0].y += extraCoordinates * i;
             break;
           default:
-            console.log(
-              "pedestrianArray[i+1].position is not at any of the maximum values"
             );
             break;
         }
@@ -268,73 +231,6 @@ const MAX_DOWN = 25;*/
       pedestrian.setDiffXandY();
     });
   }
-
-  /*isSamePositions(position) {
-    return this.x === position.x && this.y === position.y;
-*/
-
-  /* 
-    
-    const pedestriansWithSamePathId = pedestrianArray.filter(
-      (pedestrian, index, pedestrianArray) =>
-        pedestrianArray.indexOf(pedestrian.pathId) !== index
-    );
-
-    pedestriansWithSamePathId.sort((a, b) => a.pathId - b.pathId);
-
-    let extraCoordinates = 300;
-
-    for (let i = 0; i < pedestriansWithSamePathId.length-1; i++) {
-      if (
-        pedestriansWithSamePathId[i].pathId ===
-        pedestriansWithSamePathId[i + 1].pathId
-      ) {
-        switch (true) {
-          case pedestriansWithSamePathId[i + 1].path[0].x / PIXEL_SIZE ===
-            MAX_RIGHT:
-            console.log(
-              "pedestriansWithSamePathId[i+1].position is at MAX_RIGHT"
-            );
-            pedestriansWithSamePathId[i + 1].path[0].x +=
-              extraCoordinates + i * 1.5;
-            break;
-          case pedestriansWithSamePathId[i + 1].path[0].x / PIXEL_SIZE ===
-            MAX_LEFT:
-            console.log(
-              "pedestriansWithSamePathId[i+1].position is at MAX_LEFT"
-            );
-            pedestriansWithSamePathId[i + 1].path[0].x -=
-              extraCoordinates + i * 1.5;
-            break;
-          case pedestriansWithSamePathId[i + 1].path[0].y / PIXEL_SIZE ===
-            MAX_UP:
-            console.log("pedestriansWithSamePathId[i+1].position is at MAX_UP");
-            pedestriansWithSamePathId[i + 1].path[0].y -=
-              extraCoordinates + i * 1.5;
-            break;
-          case pedestriansWithSamePathId[i + 1].path[0].y / PIXEL_SIZE ===
-            MAX_DOWN:
-            console.log(
-              "pedestriansWithSamePathId[i+1].position is at MAX_DOWN"
-            );
-            pedestriansWithSamePathId[i + 1].path[0].y +=
-              extraCoordinates + i * 1.5;
-            break;
-          default:
-            console.log(
-              "pedestriansWithSamePathId[i+1].position is not at any of the maximum values"
-            );
-            break;
-        }
-        pedestriansWithSamePathId[i + 1].position = new Position(
-          pedestriansWithSamePathId[i + 1].path[0].x,
-          pedestriansWithSamePathId[i + 1].path[0].y
-        );
-      }
-    }
-
-
-    */
 
   findDuplicateStartingPositions(pedestrianArray) {
     return pedestrianArray.filter((pedestrian, index, pedestrianArray) => {
@@ -351,14 +247,15 @@ const MAX_DOWN = 25;*/
     if (xOrY === "x") {
       paths.forEach((path) => {
         path.forEach((position) => {
-          if (position.x != MAX_LEFT || position.x != MAX_RIGHT) position.x += pixels * PIXEL_SIZE;
+          if (position.x != MAX_LEFT || position.x != MAX_RIGHT)
+            position.x += pixels * PIXEL_SIZE;
         });
       });
     } else if (xOrY === "y") {
       paths.forEach((path) => {
         path.forEach((position) => {
           if (position.y != MAX_UP || position.y != MAX_DOWN)
-          position.y += pixels * PIXEL_SIZE;
+            position.y += pixels * PIXEL_SIZE;
         });
       });
     }

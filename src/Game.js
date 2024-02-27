@@ -28,7 +28,6 @@ export class Game {
     this.boundaries = this.initBoundaries();
     this.loadLevelImages();
     this.loadPlayerImage();
-    // how to initiate player?????????????
     this.player = null;
     this.pedestrians = null;
     this.timer = 60;
@@ -80,25 +79,18 @@ export class Game {
     this.foregroundImage.src = "./assets/foreground.png";
 
     this.levelImage.onload = () => {
-      // Image is fully loaded, you can use it now
+      // Image is fully loaded
     };
 
     this.foregroundImage.onload = () => {
-      // Image is fully loaded, you can use it now
+      // Image is fully loaded
     };
-    /*
-    // Store images in Game object
-    this.levelImage = levelImage;
-    this.foregroundImage = foregroundImage;
-    */
   }
 
   loadPlayerImage() {
     // Load player as an image
     const playerImage = new Image();
-    // playerImage.src = "../assets/characters/player/Character1M_1_idle_0.png"; //64*64px
-    playerImage.src =
-      "./assets/Character1M1idle0SMALL.png"; //30PX
+    playerImage.src = "./assets/Character1M1idle0SMALL.png"; //30PX
 
     this.playerImage = playerImage;
   }
@@ -132,6 +124,7 @@ export class Game {
         new Pedestrian(new Position(0, 0), pedestrianImage, 0.5, i)
       );
     }
+    // Add extra pixels to ensure phased appearance
     pedestrians[0].addDelay(pedestrians);
 
     return pedestrians;
@@ -157,10 +150,7 @@ export class Game {
     // Render the level, boundaries, player and foreground
 
     ctx.drawImage(this.levelImage, 0, 0);
-    /*
-    this.levelImage.onload = () => {
-    };
-    */
+
     this.boundaries.forEach((boundary) => {
       boundary.draw(ctx);
     });
@@ -208,16 +198,6 @@ export class Game {
     });
 
     return collidedPedestrian == undefined ? null : collidedPedestrian.id;
-
-    /*
-    let pedestrianCollisionId = pedestrians.some((pedestrian) => {
-      if (this.player.position.isNextTo(this.player, pedestrian, this.player.width)) {
-        //pedestrian.hasCollided = true;
-        //pedestrianCollisionId = pedestrian.id;
-        return pedestrian.id;
-      }
-    });
-    */
   }
 
   initScore() {
@@ -226,26 +206,15 @@ export class Game {
 
   gameLoop() {
     // Store the exact frame id to pause and resume animations
-    console.log(this.animationId);
-
     if (!this.isStartAgain) {
       const animationId = window.requestAnimationFrame(
         this.gameLoop.bind(this)
       );
       this.animationId = animationId;
     } else {
-      //const animationId = 1;
       this.isStartAgain = false;
       this.restartGameLoop();
     }
-
-    /*
-    
-    const animationId = window.requestAnimationFrame(() => this.gameLoop());
-    const animationId = window.requestAnimationFrame(this.gameLoop());
-    
-    */
-    //this.renderGameElements();
 
     this.updateTimer();
     this.renderGameElements();
@@ -258,14 +227,12 @@ export class Game {
 
     // If the player has collided with a new pedestrian
     if (!this.player.hasAlreadyCollidedWith(pedestrianCollisionId)) {
-      console.log("collisionnnnnnnnnn");
       this.player.addCollision(pedestrianCollisionId);
       window.cancelAnimationFrame(this.animationId);
       startLetterGuessingGame(this);
     }
 
     let isPlayerMoving = true;
-    //let isPlayerMoving = true;
 
     if (this.keys.ArrowUp) {
       isPlayerMoving = this.boundaries[0].checkAllCollisions(
@@ -335,7 +302,6 @@ export class Game {
     gameEnd.appendChild(stoppedPedestriansElement);
 
     // Update the restart button text
-
     restartButton.addEventListener("click", () => window.location.reload());
   }
 
@@ -375,17 +341,6 @@ export class Game {
 
     // Start the game loop again
     game.gameLoop();
-
-    /*
-    
-    window.cancelAnimationFrame(this.animationId);
-
-    // initialize animation id
-    this.animationId = null;
-
-    // Start the game loop again
-    this.gameLoop();
-    */
   }
 }
 
