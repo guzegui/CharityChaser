@@ -217,7 +217,6 @@ export class Pedestrian extends Sprite {
             pedestrianArray[i + 1].path[0].y += extraCoordinates * i;
             break;
           default:
-            );
             break;
         }
         pedestrianArray[i + 1].position = new Position(
