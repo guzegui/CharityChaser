@@ -140,28 +140,26 @@ export class Pedestrian extends Sprite {
     const fromBottom = [];
     fromBottom.push(path9, path10);
 
-    const path11 = [new Position(MAX_RIGHT, 22), new Position(39, MAX_UP)].map(
+    const path11 = [new Position(MAX_RIGHT, 22), new Position(39, 22), new Position(39, MAX_UP)].map(
       (position) => position.multiplyPositions(PIXEL_SIZE)
     );
 
     const path12 = [
-      new Position(MAX_RIGHT, 6),
+      new Position(MAX_RIGHT, 22),
       //new Position(39, 6),
-      new Position(MAX_LEFT, 6),
+      new Position(MAX_LEFT, 22),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const path13 = [
-      new Position(MAX_RIGHT, 6),
-      new Position(39, 6),
-      new Position(27, 6),
-      new Position(MAX_UP, 6),
+      new Position(MAX_RIGHT, 22),
+      new Position(39, 22),
+      new Position(MAX_UP, 22),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const path14 = [
-      new Position(MAX_RIGHT, 6),
-      new Position(39, 6),
-      new Position(27, 6),
-      new Position(MAX_DOWN, 6),
+      new Position(MAX_RIGHT, 22),
+      new Position(39, 22),
+      new Position(MAX_DOWN, 22),
     ].map((position) => position.multiplyPositions(PIXEL_SIZE));
 
     const fromRight = [];
@@ -169,13 +167,13 @@ export class Pedestrian extends Sprite {
 
     // Adjustments for rendering
     this.addOnXorYAxis(fromLeftTop, "x", 1);
-    this.addOnXorYAxis(fromLeftTop, "y", -1);
-    this.addOnXorYAxis(fromRight, "y", 2);
+    this.addOnXorYAxis(fromLeftTop, "y", 1);
+    this.addOnXorYAxis(fromRight, "y", 1);
     this.addOnXorYAxis(fromLeftBottom, "y", 1.5);
     this.addOnXorYAxis(fromLeftBottom, "x", 1);
-    this.addOnXorYAxis(fromTop, "x", 2.5);
-    this.addOnXorYAxis(fromTop, "y", 2);
-    this.addOnXorYAxis(fromBottom, "x", 3);
+    this.addOnXorYAxis(fromTop, "x", 1.5);
+    this.addOnXorYAxis(fromTop, "y", 1);
+    this.addOnXorYAxis(fromBottom, "x", 1.5);
 
     let pathArray = [];
     pathArray.push(
